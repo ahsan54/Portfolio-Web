@@ -6,23 +6,8 @@ import { SkillBar } from './components/SkillBar';
 import { ProjectCard } from './components/ProjectCard';
 import { Navbar } from './components/Navbar';
 
-function App() {
-  const { scrollYProgress } = useScroll();
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-  const skills = [
-    { name: 'Python', percentage: 80 },
-    { name: 'Object Oriented Programming', percentage: 90 },
-    { name: 'Data Structures', percentage: 80 },
-    { name: 'PostgreSQL', percentage: 80 },
-    { name: 'OdooERP', percentage: 80 },
-    { name: 'QWeb', percentage: 80 },
-    { name: 'XML', percentage: 90 },
-    { name: 'HTML/CSS', percentage: 90 },
-  ];
-
-  const projects = [
+const projects = [
   {
     title: 'Tijaarat Developers',
     description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
@@ -85,7 +70,27 @@ function App() {
   },
 ];
 
-export default projects;
+
+
+
+function App() {
+  const { scrollYProgress } = useScroll();
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const skills = [
+    { name: 'Python', percentage: 80 },
+    { name: 'Object Oriented Programming', percentage: 90 },
+    { name: 'Data Structures', percentage: 80 },
+    { name: 'PostgreSQL', percentage: 80 },
+    { name: 'OdooERP', percentage: 80 },
+    { name: 'QWeb', percentage: 80 },
+    { name: 'XML', percentage: 90 },
+    { name: 'HTML/CSS', percentage: 90 },
+  ];
+
+  
+
 
 
   return (
@@ -216,6 +221,8 @@ export default projects;
         </section>
       </div>
     </div>
+    export default projects;
+
   );
 }
 
