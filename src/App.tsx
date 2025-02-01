@@ -102,16 +102,18 @@ function App() {
       
       {/* Hero Section with Parallax */}
       
-      <motion.div
+      {/* Hero Section with Parallax */}
+<motion.div
   className="fixed inset-0 z-0"
   style={{
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    filter: 'blur(40px)',
+    filter: 'blur(25px)',  // Adjust the blur intensity here
     y: backgroundY,
   }}
 />
+
       
       <motion.div
         className="relative z-10 min-h-screen flex items-center justify-center"
