@@ -25,63 +25,63 @@ function App() {
   const projects = [
     {
       title: 'Tijaarat Developers',
-      description: 'Real estate management system with advanced property listings, client management, and automated documentation.',
+      description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
       githubUrl: 'https://github.com/ahsan54/Tijaarat-Developers.git',
-      image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+      image: url('./img/tij.jpg'); 
     },
     {
       title: 'BSS Development',
-      description: 'Developed and migrated multiple Odoo 16 modules for HRMS and accounting.',
+      description: 'Developed and migrated multiple Odoo 16 modules, including dynamic cheque numbering, custom approval workflows, salary register reports, enhanced employee portals, dynamic payment vouchers, invoice customization, default journal configurations, HR document generation, and automated withholding tax calculations.',
       githubUrl: 'https://github.com/ahsan54/BSS_Custom_Development.git',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/bss.jpg'); 
     },
     {
-      title: 'Payment Voucher',
-      description: 'Internship project for streamlining payment processing with automated journal entries.',
+      title: 'Payment Voucher Module',
+    description: 'Designed PV module to streamline payment processing with automated journal entries, featuring dynamically generated debit/credit lines linked to relevant journals. Integrated ir.sequence for different voucher and cheque numbers.',
       githubUrl: 'https://github.com/ahsan54/PaymentVoucher.git',
-      image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/voucher.jpg'); 
     },
     {
-      title: 'Employee Loan Management',
-      description: 'Odoo module for managing employee loans, approvals, and installment tracking.',
+      title: 'Employee Loan  Module',
+    description: 'Developed an Odoo module for managing employee loans, automating loan application, approval, and installment tracking. It integrates accounting by updating journal entries, including profit JV, upon installment payments. The module also configures loan types, prevents duplicate loan applications.',
       githubUrl: 'https://github.com/ahsan54/Employee-Loan-Management.git',
-      image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/greenLeaf_coins.png'); 
     },
     {
-      title: 'Fleet Fuel Tank',
-      description: 'Internship project tracking fuel consumption with advanced validation.',
+      title: 'Fleet Fuel Tank Module',
+      description: 'Internship module tracking fuel consumption with advanced validation.',
       githubUrl: 'https://github.com/ahsan54/Fleet-Fuel-Tank-.git',
-      image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/fleet.jpg'); 
     },
     {
-      title: 'Hospital Management Odoo',
-      description: 'Internship project managing patients, doctors, and appointments in Odoo.',
+      title: 'Hospital Management  Module',
+      description: 'Internship module managing patients, doctors, and appointments in Odoo.',
       githubUrl: 'https://github.com/ahsan54/Hospital-Management-Odoo.git',
-      image: 'https://images.unsplash.com/photo-1538108149393-fbbd81895907?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/hospital.jpg'); 
     },
     {
       title: 'Diabetes Prediction System',
-      description: 'FYP project using machine learning to predict diabetes risk.',
+    description: 'Machine learning-based system for predicting diabetes risk using patient data.it aims to predict the likelihood of an individual having diabetes using logistic regression model.',
       githubUrl: 'https://ahsan54.github.io/Diabetes_FrontEnd/',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/fyp.jpg'); 
     },
     {
       title: 'Movement Detector',
-      description: 'Personal project detecting head movements and sending WhatsApp alerts.',
+    description: 'Project detects head movements using a webcam and sends a WhatsApp message via Twilio Web Api to desired number when head movement is detected.',
       githubUrl: 'https://github.com/ahsan54/Head_Movement_Detector.git',
-      image: 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/head.jpg'); 
     },
     {
       title: 'Tailor Measurements Saver',
-      description: 'Personal project for storing and managing tailor measurements.',
+    description: 'Digital solution for storing and managing tailor measurements efficiently.Built using Python and Flask, this app allows you to perform CRUD on measurements effortlessly.',
       githubUrl: 'https://github.com/ahsan54/Tailor-Measurements-Saver-App.git',
-      image: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/tailor.png'); 
     },
     {
       title: 'Patient Appointment Booking',
-      description: 'Personal project for managing clinic appointments and doctor availability.',
+    description: 'Project is developed to streamline the process of booking, checking available slots for specifiic doctor, and managing clinic appointments.',
       githubUrl: 'https://github.com/ahsan54/Clinic_ManageMent_Demo.git',
-      image: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80',
+       image: url('./img/appointment.png'); 
     },
   ];
 
@@ -93,7 +93,7 @@ function App() {
       <motion.div
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: url('./img/Top.webp');
+          backgroundImage: url('./img/Top.webp'); tij.jpg
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: backgroundY,
@@ -144,9 +144,9 @@ function App() {
             <p className="text-blue-300 mb-4">August 2024 – Present</p>
             <ul className="list-disc list-inside text-gray-300 space-y-2">
               <li>Developing, customizing, and enhancing Odoo modules</li>
-              <li>Integrated APIs into Odoo for seamless workflows</li>
+              <li>Integrated Controller Apis into Odoo for seamless workflows</li>
               <li>Migrated modules to newer versions while optimizing performance</li>
-              <li>Created advanced QWeb PDF and Excel reports</li>
+              <li>Developed advanced QWeb PDF and Excel reports</li>
               <li>Collaborated with team leads to deliver high-quality solutions</li>
             </ul>
           </motion.div>
