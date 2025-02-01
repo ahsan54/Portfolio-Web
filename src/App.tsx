@@ -106,7 +106,7 @@ function App() {
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topImage})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    filter: 'blur(5px)',  // Reduced blur intensity
+    filter: 'blur(2px)',  // Reduced blur intensity
     y: backgroundY,
   }}
 />
