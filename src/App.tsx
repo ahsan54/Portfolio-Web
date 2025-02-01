@@ -101,15 +101,17 @@ function App() {
       <Navbar />
       
       {/* Hero Section with Parallax */}
+      
       <motion.div
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: `url(${topImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          y: backgroundY,
-        }}
-      />
+  className="fixed inset-0 z-0"
+  style={{
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)), url(${topImage})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    filter: 'blur(40px)',
+    y: backgroundY,
+  }}
+/>
       
       <motion.div
         className="relative z-10 min-h-screen flex items-center justify-center"
