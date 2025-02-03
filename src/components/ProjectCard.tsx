@@ -15,23 +15,22 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ scale: 1.05, rotateY: 5 }}
-      className="group relative overflow-hidden rounded-xl flex flex-col min-h-[400px]" // Enforce consistent height
+      whileHover={{ scale: 1.02, rotateY: 5 }} // Smoother hover effect
+      className="group relative overflow-hidden rounded-xl flex flex-col min-h-[350px] sm:min-h-[400px] bg-gray-900/50 backdrop-blur-sm"
     >
       <div
-        className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-500 group-hover:scale-110"
+        className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-500 group-hover:scale-105"
         style={{ backgroundImage: `url(${image})` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/70 to-black/30 z-10" />
       
-      {/* Fixed height for content container */}
-      <div className="relative z-20 p-6 flex flex-col flex-grow"> 
+      <div className="relative z-20 p-4 sm:p-6 flex flex-col flex-grow"> 
         <div className="flex-grow">
           <motion.h3
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
-            className="text-2xl font-bold text-white mb-2"
+            className="text-xl sm:text-2xl font-bold text-white mb-2"
           >
             {title}
           </motion.h3>
@@ -39,13 +38,12 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
-            className="text-gray-300 mb-4"
+            className="text-gray-300 text-sm sm:text-base mb-4 line-clamp-6 sm:line-clamp-4"
           >
             {description}
           </motion.p>
         </div>
 
-        {/* Ensure GitHub link is always at the bottom */}
         <motion.a
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -53,9 +51,9 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
           href={githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors mt-auto" // Ensure it's at the bottom
+          className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors mt-auto text-sm sm:text-base"
         >
-          <Github className="w-5 h-5 mr-2" />
+          <Github className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
           View on GitHub
         </motion.a>
       </div>
