@@ -38,7 +38,7 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
-            className="text-gray-300 text-sm sm:text-base mb-4 line-clamp-6 sm:line-clamp-4"
+            className="text-gray-300 text-sm sm:text-base mb-4 overflow-visible whitespace-normal"
           >
             {description}
           </motion.p>
