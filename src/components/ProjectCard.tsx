@@ -16,14 +16,14 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }} // Reduced delay between cards
       whileHover={{ scale: 1.05, rotateY: 5 }}
-      className="group relative overflow-hidden rounded-xl flex flex-col" // Changed this line to flex-col
+      className="group relative overflow-hidden rounded-xl flex flex-col"
     >
       <div
         className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-500 group-hover:scale-110"
         style={{ backgroundImage: `url(${image})` }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent z-10" />
-      <div className="relative z-20 p-6 flex flex-col justify-between min-h-[320px]"> {/* Changed justify-start to justify-between */}
+      <div className="relative z-20 p-6 flex flex-col justify-between min-h-[320px]">
         <div>
           <motion.h3
             initial={{ y: 20, opacity: 0 }}
