@@ -138,7 +138,7 @@ function App() {
             transition={{ delay: 0.5, duration: 0.8 }}
             className="text-white text-lg"
           >
-            Scroll to explore my journey
+  
           </motion.div>
         </div>
       </motion.div>
