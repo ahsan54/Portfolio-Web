@@ -20,3 +20,25 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+.gradient-text {
+  background: linear-gradient(to right, #60A5FA, #93C5FD);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+@keyframes gradient-x {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 15s ease infinite;
+  background-size: 400% 400%;
+}
