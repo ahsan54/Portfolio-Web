@@ -1,6 +1,6 @@
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Github, Linkedin, Mail, Phone } from 'lucide-react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson } from 'lucide-react';
 import { AnimatedSection } from './components/AnimatedSection';
 import { SkillBar } from './components/SkillBar';
 import { ProjectCard } from './components/ProjectCard';
@@ -80,10 +80,65 @@ const projects = [
     image: appointmentImage,
   },
 ];
+
+const experienceData = [
+  {
+    id: 1,
+    role: "Senior Odoo Developer",
+    period: "August 2024 – Present",
+    company: "Tech Solutions Inc.",
+    achievements: [
+      {
+        icon: Code2,
+        text: "Developed and customized 20+ Odoo modules enhancing business processes",
+      },
+      {
+        icon: GitBranch,
+        text: "Integrated RESTful APIs improving system connectivity by 40%",
+      },
+      {
+        icon: GitMerge,
+        text: "Successfully migrated 15+ modules to newer versions with 99.9% data integrity",
+      },
+      {
+        icon: Database,
+        text: "Optimized database queries reducing response time by 60%",
+      },
+      {
+        icon: FileJson,
+        text: "Created advanced QWeb reports increasing reporting efficiency by 45%",
+      },
+    ],
+    techStack: ["Python", "PostgreSQL", "XML", "JavaScript", "Git"],
+  }
+];
+
 function App() {
   const { scrollYProgress } = useScroll();
   const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+      },
+    },
+  };
 
   const skills = [
     { name: 'Python', percentage: 80 },
@@ -99,76 +154,229 @@ function App() {
   return (
     <div className="relative">
       <Navbar />
-<motion.div
-  className="fixed inset-0 z-0"
-  style={{
-    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topImage})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    // No blur applied, only darkness via gradient
-    y: backgroundY,
-  }}
-/>
-
-
-
       
       <motion.div
-        className="relative z-10 min-h-screen flex items-center justify-center"
+        className="fixed inset-0 z-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          y: backgroundY,
+        }}
+      />
+      
+      <motion.div
+        className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
         style={{ opacity }}
       >
-        <div className="text-center p-8">
+        <motion.div
+          className="text-center"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <motion.div
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="mb-8"
+            className="mb-8 space-y-4"
+            variants={itemVariants}
           >
-            <h1 className="text-7xl font-bold text-white mb-4 tracking-tight">
-              Ahsan Ismail
-            </h1>
-            <h2 className="text-3xl text-blue-300">
+            <motion.h1 
+              className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 20,
+                duration: 1
+              }}
+            >
+              <motion.span
+                className="inline-block"
+                animate={{
+                  y: [0, -20, 0],
+                  color: ['#fff', '#60A5FA', '#fff'],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                }}
+              >
+                Ahsan
+              </motion.span>{" "}
+              <motion.span
+                className="inline-block"
+                animate={{
+                  y: [0, -20, 0],
+                  color: ['#fff', '#60A5FA', '#fff'],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: 0.2,
+                }}
+              >
+                Ismail
+              </motion.span>
+            </motion.h1>
+            <motion.h2 
+              className="text-xl sm:text-2xl md:text-3xl gradient-text"
+              variants={itemVariants}
+            >
               Python Developer | OdooERP | Problem Solver
-            </h2>
+            </motion.h2>
           </motion.div>
-          
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-white text-lg"
-          >
-  
-          </motion.div>
-        </div>
+        </motion.div>
       </motion.div>
 
       <div className="relative z-10 bg-gradient-to-b from-transparent via-gray-900 to-gray-900">
-        {/* Professional Experience Section */}
-        <section id="experience" className="pt-32 pb-24 px-4 md:px-8 max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold text-white mb-16 text-center">Professional Experience</h2>
-          <motion.div 
-            className="mt-16 bg-white/10 p-8 rounded-lg backdrop-blur-sm"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+        <motion.section 
+          id="experience"
+          className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-8 max-w-6xl mx-auto"
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: false }}
+        >
+          <motion.h2 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
+            whileInView={{
+              scale: [0.9, 1.1, 1],
+              opacity: [0, 1],
+            }}
             transition={{ duration: 0.8 }}
           >
-            <h3 className="text-2xl font-bold text-white mb-4">Odoo Developer</h3>
-            <p className="text-blue-300 mb-4">August 2024 – Present</p>
-            <ul className="list-disc list-inside text-gray-300 space-y-2">
-              <li>Developing, customizing, and enhancing Odoo modules</li>
-              <li>Integrated Controller Apis into Odoo for seamless workflows</li>
-              <li>Migrated modules to newer versions while optimizing performance</li>
-              <li>Developed advanced QWeb PDF and Excel reports</li>
-              <li>Collaborated with team leads to deliver high-quality solutions</li>
-            </ul>
-          </motion.div>
-        </section>
+            Professional Experience
+          </motion.h2>
+        
+          {experienceData.map((experience) => (
+            <motion.div 
+              key={experience.id}
+              className="mt-8 sm:mt-16 relative"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <motion.div 
+                className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 p-1 rounded-lg"
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div className="bg-gray-900/90 p-6 sm:p-8 rounded-lg backdrop-blur-sm relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 animate-gradient-x"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+                      <div>
+                        <motion.h3 
+                          className="text-2xl sm:text-3xl font-bold text-white mb-2"
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          {experience.role}
+                        </motion.h3>
+                        <motion.p 
+                          className="text-blue-400 text-lg"
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.3 }}
+                        >
+                          {experience.company}
+                        </motion.p>
+                      </div>
+                      <motion.div 
+                        className="mt-2 sm:mt-0 px-4 py-2 bg-blue-500/20 rounded-full"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.4 }}
+                      >
+                        <p className="text-blue-300 font-medium">{experience.period}</p>
+                      </motion.div>
+                    </div>
 
-        {/* Skills Section */}
-        <section id="skills" className="py-24 px-4 md:px-8 max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold text-white mb-16 text-center">Skills & Expertise</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+                    <motion.div 
+                      className="space-y-4"
+                      variants={containerVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                    >
+                      {experience.achievements.map((achievement, index) => {
+                        const Icon = achievement.icon;
+                        return (
+                          <motion.div
+                            key={index}
+                            className="flex items-start space-x-3"
+                            variants={itemVariants}
+                            whileHover={{ x: 10, transition: { type: "spring", stiffness: 300 } }}
+                          >
+                            <div className="mt-1">
+                              <motion.div
+                                className="p-2 bg-blue-500/20 rounded-lg"
+                                whileHover={{ 
+                                  scale: 1.2,
+                                  rotate: 360,
+                                  backgroundColor: "rgba(59, 130, 246, 0.4)"
+                                }}
+                                transition={{ duration: 0.3 }}
+                              >
+                                <Icon className="w-5 h-5 text-blue-400" />
+                              </motion.div>
+                            </div>
+                            <p className="text-gray-300 flex-1">{achievement.text}</p>
+                          </motion.div>
+                        );
+                      })}
+                    </motion.div>
+
+                    <motion.div 
+                      className="mt-6 flex flex-wrap gap-2"
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      {experience.techStack.map((tech, index) => (
+                        <motion.span
+                          key={tech}
+                          className="px-3 py-1 bg-blue-500/10 text-blue-300 rounded-full text-sm"
+                          whileHover={{ 
+                            scale: 1.1,
+                            backgroundColor: "rgba(59, 130, 246, 0.3)",
+                          }}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          {tech}
+                        </motion.span>
+                      ))}
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.section>
+
+        <motion.section 
+          id="skills"
+          className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
+            whileInView={{
+              scale: [0.9, 1.1, 1],
+              opacity: [0, 1],
+            }}
+            transition={{ duration: 0.8 }}
+          >
+            Skills & Expertise
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mt-8 sm:mt-16">
             {skills.map((skill, index) => (
               <SkillBar
                 key={skill.name}
@@ -178,12 +386,31 @@ function App() {
               />
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        {/* Projects Section */}
-        <section id="projects" className="py-24 px-4 md:px-8 max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold text-white mb-16 text-center">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+        <motion.section 
+          id="projects"
+          className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
+            whileInView={{
+              scale: [0.9, 1.1, 1],
+              opacity: [0, 1],
+            }}
+            transition={{ duration: 0.8 }}
+          >
+            Featured Projects
+          </motion.h2>
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mt-8 sm:mt-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+          >
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.title}
@@ -191,17 +418,31 @@ function App() {
                 index={index}
               />
             ))}
-          </div>
-        </section>
+          </motion.div>
+        </motion.section>
 
-        {/* Contact Section */}
-        <section id="contact" className="py-24 px-4 md:px-8 max-w-6xl mx-auto">
-          <h2 className="text-5xl font-bold text-white mb-16 text-center">Get In Touch</h2>
-          <motion.div 
-            className="flex flex-wrap justify-center gap-8 mt-16"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+        <motion.section 
+          id="contact"
+          className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2 
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
+            whileInView={{
+              scale: [0.9, 1.1, 1],
+              opacity: [0, 1],
+            }}
             transition={{ duration: 0.8 }}
+          >
+            Get In Touch
+          </motion.h2>
+          <motion.div 
+            className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-8 sm:mt-16"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
           >
             {[
               { icon: Phone, href: "tel:03180690159", text: "03180690159" },
@@ -214,16 +455,27 @@ function App() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center text-white hover:text-blue-300 transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
+                className="flex items-center text-white hover:text-blue-300 transition-all duration-300 text-sm sm:text-base"
+                whileHover={{ 
+                  scale: 1.1,
+                  textShadow: "0 0 15px rgb(147, 197, 253)",
+                  color: "#60A5FA",
+                }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Icon className="w-6 h-6 mr-2" />
+                <motion.div
+                  whileHover={{
+                    rotate: [0, -10, 10, -10, 0],
+                    transition: { duration: 0.5 },
+                  }}
+                >
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
+                </motion.div>
                 {text}
               </motion.a>
             ))}
           </motion.div>
-        </section>
+        </motion.section>
       </div>
     </div>
   );
