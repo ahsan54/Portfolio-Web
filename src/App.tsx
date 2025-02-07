@@ -84,32 +84,33 @@ const projects = [
 const experienceData = [
   {
     id: 1,
-    role: "Senior Odoo Developer",
+    role: "Odoo Developer",
     period: "August 2024 – Present",
-    company: "Tech Solutions Inc.",
+    company: "Business Solutions & Services",
     achievements: [
-      {
-        icon: Code2,
-        text: "Developed and customized 20+ Odoo modules enhancing business processes",
-      },
-      {
-        icon: GitBranch,
-        text: "Integrated RESTful APIs improving system connectivity by 40%",
-      },
-      {
-        icon: GitMerge,
-        text: "Successfully migrated 15+ modules to newer versions with 99.9% data integrity",
-      },
-      {
-        icon: Database,
-        text: "Optimized database queries reducing response time by 60%",
-      },
-      {
-        icon: FileJson,
-        text: "Created advanced QWeb reports increasing reporting efficiency by 45%",
-      },
-    ],
-    techStack: ["Python", "PostgreSQL", "XML", "JavaScript", "Git"],
+  {
+    icon: Code2,
+    text: "Developing, customizing, and enhancing Odoo modules.",
+  },
+  {
+    icon: GitBranch,
+    text: "Working on portals using controller APIs for seamless workflows.",
+  },
+  {
+    icon: GitMerge,
+    text: "Migrated modules to newer versions while optimizing performance.",
+  },
+  {
+    icon: Database,
+    text: "Developed advanced QWeb PDF and Excel reports.",
+  },
+  {
+    icon: FileJson,
+    text: "Collaborated with team leads to deliver high-quality solutions.",
+  },
+],
+
+    techStack: ["Odoo", "Python", "PostgreSQL", "XML"],
   }
 ];
 
