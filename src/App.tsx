@@ -6,6 +6,8 @@ import { SkillBar } from './components/SkillBar';
 import { ProjectCard } from './components/ProjectCard';
 import { Navbar } from './components/Navbar';
 import topImage from './img/Top.webp';
+import topLightImage from './img/light_top.jpg';
+import topPolygonImage from './img/polygon_top.jpg';
 // Import all project images
 import tijImage from './img/tij.jpg';
 import bssImage from './img/bss.jpg';
@@ -159,7 +161,7 @@ function App() {
       <motion.div
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topImage})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topLightImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: backgroundY,
