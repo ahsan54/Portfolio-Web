@@ -161,7 +161,7 @@ function App() {
       <motion.div
         className="fixed inset-0 z-0"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topLightImage})`,
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.2)), url(${topPolygonImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: backgroundY,
