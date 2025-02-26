@@ -19,6 +19,7 @@ import fypImage from './img/fyp.jpg';
 import headImage from './img/head.jpg';
 import tailorImage from './img/tailor.png';
 import appointmentImage from './img/appointment.png';
+import hotelImage from './img/hotel_background.jpg';
 
 const projects = [
   {
@@ -35,9 +36,9 @@ const projects = [
   },
   {
     title: 'Hotel Reservation Module',
-    description: 'Hotel reservation booking module for check-in/check-out workflows with check-in/check-out approval admins, dynamic room pricing, guest history tracking, and access right processes. Includes dashboards.',
-    githubUrl: 'https://github.com/ahsan54/PaymentVoucher.git',
-    image: voucherImage,
+    description: 'Hotel reservation booking module for Manage bookings, check-ins/check-outs, and admin approval workflows with dynamic pricing, guest stay histories, and role-based access controls. Monitor operations via dashboards for room availability, booking trends, and guest insights.',
+    githubUrl: '',
+    image: hotelImage,
   },
   {
     title: 'Payment Voucher Module',
