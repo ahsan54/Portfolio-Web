@@ -7,7 +7,7 @@ import { ProjectCard } from './components/ProjectCard';
 import { Navbar } from './components/Navbar';
 import topImage from './img/Top.webp';
 import topLightImage from './img/light_top.jpg';
-import topPolygonImage from './img/polygon_top.jpg';
+import topPolygonImage from './img/polygon_top.webp';
 // Import all project images
 import tijImage from './img/tij.jpg';
 import bssImage from './img/bss.jpg';
