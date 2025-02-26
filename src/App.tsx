@@ -37,7 +37,7 @@ const projects = [
   {
     title: 'Hotel Reservation Module',
     description: 'Hotel reservation booking module for Manage bookings, check-ins/check-outs, and admin approval workflows with dynamic pricing, guest stay histories, and role-based access controls. Monitor operations via dashboards for room availability, booking trends, and guest insights.',
-    githubUrl: '',
+    githubUrl: 'https://github.com/ahsan54/Hotel-Reservation-Management.git',
     image: hotelImage,
   },
   {
