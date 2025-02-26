@@ -34,6 +34,12 @@ const projects = [
     image: bssImage,
   },
   {
+    title: 'Hotel Reservation Module',
+    description: 'Hotel reservation booking module for check-in/check-out workflows with check-in/check-out approval admins, dynamic room pricing, guest history tracking, and access right processes. Includes dashboards.',
+    githubUrl: 'https://github.com/ahsan54/PaymentVoucher.git',
+    image: voucherImage,
+  },
+  {
     title: 'Payment Voucher Module',
     description: 'Designed PV module to streamline payment processing with automated journal entries, featuring dynamically generated debit/credit lines linked to relevant journals. Integrated ir.sequence for different voucher and cheque numbers.',
     githubUrl: 'https://github.com/ahsan54/PaymentVoucher.git',
