@@ -16,10 +16,15 @@ export function SkillBar({ name, percentage, index }: SkillBarProps) {
   return (
     <motion.div
       ref={ref}
-      initial={{ x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
-      animate={inView ? { x: 0, opacity: 1 } : { x: index % 2 === 0 ? -50 : 50, opacity: 0 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      whileHover={{ scale: 1.02, boxShadow: '0 10px 20px 0px #00000033' }}
+      initial={{ scale: 0, y: 0, x: 0 }} // Start from center, scaled down
+      animate={inView ? { scale: 1, y: -50 * (index % 2 === 0 ? 1 : -1), x: 50 * (index % 2 === 0 ? 1 : -1) } : { scale: 0, y: 0, x: 0 }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: 'easeOut' }}
+      whileHover={{
+        scale: 1.1,
+        boxShadow: '0 20px 40px 0px rgba(0, 0, 0, 0.4)',
+        rotate: 2,
+        transition: { duration: 0.5, ease: 'easeInOut' },
+      }}
       className="relative mb-6 overflow-hidden rounded-lg group glass-effect hover-card animated-border"
       style={{ minHeight: '140px' }}
     >
@@ -29,8 +34,10 @@ export function SkillBar({ name, percentage, index }: SkillBarProps) {
           <motion.h3 
             className="text-2xl font-semibold text-white group-hover:text-blue-300 transition-colors glow-text"
             whileHover={{
-              scale: 1.05,
-              textShadow: "0 0 10px rgba(96, 165, 250, 1), 0 0 20px rgba(96, 165, 250, 0.8)"
+              scale: 1.1,
+              textShadow: "0 0 15px rgba(96, 165, 250, 1), 0 0 30px rgba(96, 165, 250, 0.9)",
+              rotate: 2,
+              transition: { duration: 0.5, ease: 'easeInOut' },
             }}
           >
             {name}
@@ -40,7 +47,11 @@ export function SkillBar({ name, percentage, index }: SkillBarProps) {
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{
+              scale: 1.2,
+              textShadow: "0 0 10px rgba(147, 197, 253, 0.8)",
+              transition: { duration: 0.5, ease: 'easeInOut' },
+            }}
           >
             {percentage}%
           </motion.span>
@@ -56,8 +67,10 @@ export function SkillBar({ name, percentage, index }: SkillBarProps) {
               boxShadow: '0 0 20px rgba(96, 165, 250, 0.5)',
             }}
             whileHover={{
-              scaleX: 1.02,
-              boxShadow: '0 0 30px rgba(96, 165, 250, 0.8)'
+              scaleX: 1.1,
+              boxShadow: '0 0 40px rgba(96, 165, 250, 0.9)',
+              rotate: 1,
+              transition: { duration: 0.5, ease: 'easeInOut' },
             }}
           />
         </div>
@@ -67,6 +80,11 @@ export function SkillBar({ name, percentage, index }: SkillBarProps) {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
+          whileHover={{
+            scale: 1.05,
+            color: '#a0aec0',
+            transition: { duration: 0.5, ease: 'easeInOut' },
+          }}
         >
           {/* Skill description goes here */}
         </motion.div>
