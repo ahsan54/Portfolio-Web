@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useEffect, useState } from 'react';
 
 interface SkillBarProps {
   name: string;
@@ -12,12 +13,25 @@ export function SkillBar({ name, percentage, index }: SkillBarProps) {
     triggerOnce: false,
     threshold: 0.2,
   });
+  const [windowHeight, setWindowHeight] = useState(0);
+
+  useEffect(() => {
+    setWindowHeight(window.innerHeight);
+    const handleResize = () => setWindowHeight(window.innerHeight);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const center_y = windowHeight / 2;
+  const original_top = index * 146; // Assuming 140px height + 6px margin
+  const initial_y = center_y - original_top;
+  const initial_x = index % 2 === 0 ? -50 : 50; // Outward movement
 
   return (
     <motion.div
       ref={ref}
-      initial={{ scale: 0, y: 0, x: 0 }} // Start from center, scaled down
-      animate={inView ? { scale: 1, y: -50 * (index % 2 === 0 ? 1 : -1), x: 50 * (index % 2 === 0 ? 1 : -1) } : { scale: 0, y: 0, x: 0 }}
+      initial={{ x: 0, y: initial_y, opacity: 0 }} // Start from center y, no x movement initially
+      animate={inView ? { x: initial_x, y: 0, opacity: 1 } : { x: 0, y: initial_y, opacity: 0 }} // Move outward and up to position
       transition={{ duration: 0.8, delay: index * 0.1, ease: 'easeOut' }}
       whileHover={{
         scale: 1.1,
