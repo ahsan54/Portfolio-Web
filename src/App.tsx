@@ -10,6 +10,7 @@ import topLightImage from './img/light_top.jpg';
 import topPolygonImage from './img/polygon_top.webp';
 // Import all project images
 import car_dealer from './img/car_dealer.jpg';
+import jnj_polymer from './img/jnj_polymer.jpg';
 import tijImage from './img/tij.jpg';
 import bssImage from './img/bss.jpg';
 import voucherImage from './img/voucher.jpg';
@@ -32,9 +33,9 @@ const projects = [
 
   {
     title: 'JNJ Polymer',
-    description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
+    description: 'Developed procurment, cost sheet builder, gate pass, late payment surcharge, dual approvals for sale,purchase,inventory,manufacturing,accounting and backdate_entries, expense module.',
     githubUrl: 'https://github.com/ahsan54/J-J-Development.git',
-    image: tijImage,
+    image: jnj_polymer,
   },
   
   {
