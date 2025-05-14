@@ -8,6 +8,7 @@ import { Navbar } from './components/Navbar';
 import topImage from './img/Top.webp';
 // Import all project images
 import tijImage from './img/tij.jpg';
+import car_dealer from './img/car_dealer.jpg';
 import bssImage from './img/bss.jpg';
 import voucherImage from './img/voucher.jpg';
 import coinsImage from './img/greenLeaf_coins.png';
@@ -19,6 +20,12 @@ import tailorImage from './img/tailor.png';
 import appointmentImage from './img/appointment.png';
 
 const projects = [
+  {
+    title: 'HRL Group',
+    description: 'Developed the Dealer Management System (DMS), a comprehensive Odoo-based solution integrating inventory, sales, purchase and warranty management.',
+    githubUrl: 'https://github.com/ahsan54/hrl_dealership_management_system.git',
+    image: car_dealer,
+  },
   {
     title: 'Tijaarat Developers',
     description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
