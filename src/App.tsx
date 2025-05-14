@@ -10,7 +10,7 @@ import topLightImage from './img/light_top.jpg';
 import topPolygonImage from './img/polygon_top.webp';
 // Import all project images
 import car_dealer from './img/car_dealer.jpg';
-import jnj_polymer from './img/jnj_polymer.jpg';
+import jnj_polymer from './img/jnj_polymer.png';
 import tijImage from './img/tij.jpg';
 import bssImage from './img/bss.jpg';
 import voucherImage from './img/voucher.jpg';
