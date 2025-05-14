@@ -33,7 +33,7 @@ const projects = [
   {
     title: 'JNJ Polymer',
     description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
-    githubUrl: 'https://github.com/ahsan54/Tijaarat-Developers.git',
+    githubUrl: 'https://github.com/ahsan54/J-J-Development.git',
     image: tijImage,
   },
   
