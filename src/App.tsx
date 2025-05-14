@@ -9,6 +9,7 @@ import topImage from './img/Top_image.webp';
 import topLightImage from './img/light_top.jpg';
 import topPolygonImage from './img/polygon_top.webp';
 // Import all project images
+import car_dealer from './img/car_dealer.jpg';
 import tijImage from './img/tij.jpg';
 import bssImage from './img/bss.jpg';
 import voucherImage from './img/voucher.jpg';
@@ -22,6 +23,20 @@ import appointmentImage from './img/appointment.png';
 import hotelImage from './img/hotel_background.jpg';
 
 const projects = [
+{
+    title: 'HRL Group',
+    description: 'Developed the Dealer Management System (DMS), a comprehensive Odoo-based solution integrating inventory, sales, purchase and warranty management.',
+    githubUrl: 'https://github.com/ahsan54/hrl_dealership_management_system.git',
+    image: car_dealer,
+  },
+
+  {
+    title: 'JNJ Polymer',
+    description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
+    githubUrl: 'https://github.com/ahsan54/Tijaarat-Developers.git',
+    image: tijImage,
+  },
+  
   {
     title: 'Tijaarat Developers',
     description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
