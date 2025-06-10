@@ -26,8 +26,8 @@ import hotelImage from './img/hotel_background.jpg';
 const projects = [
 {
     title: 'HRL Group',
-    description: 'Developed the Dealer Management System (DMS), a comprehensive Odoo-based solution integrating inventory, sales, purchase and warranty management.',
-    githubUrl: 'https://github.com/ahsan54/hrl_dealership_management_system.git',
+    description: 'Developed the Dealer Management and sales warranty portal, attendance portal, leave request portal, grievance portal and emlpoyee expense portal.',
+    githubUrl: 'https://github.com/ahsan54/HRL-Group.git',
     image: car_dealer,
   },
 
