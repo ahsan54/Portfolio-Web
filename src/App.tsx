@@ -158,29 +158,33 @@ function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [cvFile, setCvFile] = useState(null);
 
-  const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  if (file && file.size <= 10 * 1024 * 1024) {
-    setCvFile(file);
-  } else {
-    alert('Please upload a file under 10MB!');
-  }
-};
+  const handleDownloadCV = () => {
+    if (cvFile) {
+      const url = window.URL.createObjectURL(cvFile);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Ahsan_Ismail_CV.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } else {
+      alert('No CV uploaded yet!');
+    }
+  };
 
   const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  if (
-    file &&
-    (file.type === 'application/pdf' ||
-      file.type === 'application/msword' ||
-      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') &&
-    file.size <= 10 * 1024 * 1024
-  ) {
-    setCvFile(file);
-  } else {
-    alert('Please upload a PDF, DOC, or DOCX file under 10MB!');
-  }
-};
+    const file = event.target.files[0];
+    if (
+      file &&
+      (file.type === 'application/pdf' ||
+        file.type === 'application/msword' ||
+        file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') &&
+      file.size <= 10 * 1024 * 1024
+    ) {
+      setCvFile(file);
+    } else {
+      alert('Please upload a PDF, DOC, or DOCX file under 10MB!');
+    }
+  };
 
   return (
     <div className="relative">
