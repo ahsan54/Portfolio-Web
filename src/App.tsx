@@ -168,19 +168,19 @@ function App() {
 };
 
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (
-      file &&
-      (file.type === 'application/pdf' ||
-        file.type === 'application/msword' ||
-        file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') &&
-      file.size <= 10 * 1024 * 1024
-    ) {
-      setCvFile(file);
-    } else {
-      alert('Please upload a PDF, DOC, or DOCX file under 10MB!');
-    }
-  };
+  const file = event.target.files[0];
+  if (
+    file &&
+    (file.type === 'application/pdf' ||
+      file.type === 'application/msword' ||
+      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') &&
+    file.size <= 10 * 1024 * 1024
+  ) {
+    setCvFile(file);
+  } else {
+    alert('Please upload a PDF, DOC, or DOCX file under 10MB!');
+  }
+};
 
   return (
     <div className="relative">
