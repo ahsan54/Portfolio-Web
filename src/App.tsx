@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson, Settings } from 'lucide-react';
 import { AnimatedSection } from './components/AnimatedSection';
 import { SkillBar } from './components/SkillBar';
 import { ProjectCard } from './components/ProjectCard';
@@ -24,20 +24,18 @@ import appointmentImage from './img/appointment.png';
 import hotelImage from './img/hotel_background.jpg';
 
 const projects = [
-{
+  {
     title: 'HRL Group',
-    description: 'Developed the Dealer Management and sales warranty portal, attendance portal, leave request portal, grievance portal and emlpoyee expense portal.',
+    description: 'Developed the Dealer Management and sales warranty portal, attendance portal, leave request portal, grievance portal and employee expense portal.',
     githubUrl: 'https://github.com/M-Ahsan-Ismail/HRL-Group.git',
     image: car_dealer,
   },
-
   {
     title: 'JNJ Polymer',
-    description: 'Developed procurment, cost sheet builder, gate pass, late payment surcharge, dual approvals for sale,purchase,inventory,manufacturing,accounting and backdate_entries, expense module.',
+    description: 'Developed procurement, cost sheet builder, gate pass, late payment surcharge, dual approvals for sale, purchase, inventory, manufacturing, accounting and backdate_entries, expense module.',
     githubUrl: 'https://github.com/M-Ahsan-Ismail/J-J-Development.git',
     image: jnj_polymer,
   },
-  
   {
     title: 'Tijaarat Developers',
     description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
@@ -52,7 +50,7 @@ const projects = [
   },
   {
     title: 'Hotel Reservation Module',
-    description: 'Hotel reservation booking module for Manage bookings, check-ins/check-outs, and admin approval workflows with dynamic pricing, guest stay histories, and role-based access controls. Monitor operations via dashboards for room availability, booking trends, and guest insights.',
+    description: 'Hotel reservation booking module for managing bookings, check-ins/check-outs, and admin approval workflows with dynamic pricing, guest stay histories, and role-based access controls. Monitor operations via dashboards for room availability, booking trends, and guest insights.',
     githubUrl: 'https://github.com/M-Ahsan-Ismail/Hotel-Reservation-Management.git',
     image: hotelImage,
   },
@@ -109,34 +107,18 @@ const projects = [
 const experienceData = [
   {
     id: 1,
-    role: "Odoo Developer",
-    period: "August 2024 – Present",
-    company: "Business Solutions & Services",
+    role: 'Odoo Developer',
+    period: 'August 2024 – Present',
+    company: 'Business Solutions & Services',
     achievements: [
-  {
-    icon: Code2,
-    text: "Developing, customizing, and enhancing Odoo modules.",
+      { icon: Code2, text: 'Developing, customizing, and enhancing Odoo modules.' },
+      { icon: GitBranch, text: 'Working on portals using controller APIs for seamless workflows.' },
+      { icon: GitMerge, text: 'Migrated modules to newer versions while optimizing performance.' },
+      { icon: Database, text: 'Developed advanced QWeb PDF and Excel reports.' },
+      { icon: FileJson, text: 'Collaborated with team leads to deliver high-quality solutions.' },
+    ],
+    techStack: ['Odoo', 'Python', 'PostgreSQL', 'XML'],
   },
-  {
-    icon: GitBranch,
-    text: "Working on portals using controller APIs for seamless workflows.",
-  },
-  {
-    icon: GitMerge,
-    text: "Migrated modules to newer versions while optimizing performance.",
-  },
-  {
-    icon: Database,
-    text: "Developed advanced QWeb PDF and Excel reports.",
-  },
-  {
-    icon: FileJson,
-    text: "Collaborated with team leads to deliver high-quality solutions.",
-  },
-],
-
-    techStack: ["Odoo", "Python", "PostgreSQL", "XML"],
-  }
 ];
 
 function App() {
@@ -148,9 +130,7 @@ function App() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.3 },
     },
   };
 
@@ -159,10 +139,7 @@ function App() {
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-      },
+      transition: { type: 'spring', stiffness: 100 },
     },
   };
 
@@ -177,10 +154,42 @@ function App() {
     { name: 'HTML/CSS', percentage: 90 },
   ];
 
+  // State and functions for CV popup
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [cvFile, setCvFile] = useState(null);
+
+  const handleDownloadCV = () => {
+    if (cvFile) {
+      const url = window.URL.createObjectURL(cvFile);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Ahsan_Ismail_CV.pdf';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } else {
+      alert('No CV uploaded yet!');
+    }
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (
+      file &&
+      (file.type === 'application/pdf' ||
+        file.type === 'application/msword' ||
+        file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') &&
+      file.size <= 10 * 1024 * 1024
+    ) {
+      setCvFile(file);
+    } else {
+      alert('Please upload a PDF, DOC, or DOCX file under 10MB!');
+    }
+  };
+
   return (
     <div className="relative">
       <Navbar />
-      
+
       <motion.div
         className="fixed inset-0 z-0"
         style={{
@@ -190,66 +199,35 @@ function App() {
           y: backgroundY,
         }}
       />
-      
+
       <motion.div
         className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8"
         style={{ opacity }}
       >
-        <motion.div
-          className="text-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div
-            className="mb-8 space-y-4"
-            variants={itemVariants}
-          >
-            <motion.h1 
+        <motion.div className="text-center" variants={containerVariants} initial="hidden" animate="visible">
+          <motion.div className="mb-8 space-y-4" variants={itemVariants}>
+            <motion.h1
               className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight"
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 200,
-                damping: 20,
-                duration: 1
-              }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20, duration: 1 }}
             >
               <motion.span
                 className="inline-block"
-                animate={{
-                  y: [0, -20, 0],
-                  color: ['#fff', '#60A5FA', '#fff'],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                }}
+                animate={{ y: [0, -20, 0], color: ['#fff', '#60A5FA', '#fff'] }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
               >
                 Ahsan
-              </motion.span>{" "}
+              </motion.span>{' '}
               <motion.span
                 className="inline-block"
-                animate={{
-                  y: [0, -20, 0],
-                  color: ['#fff', '#60A5FA', '#fff'],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  delay: 0.2,
-                }}
+                animate={{ y: [0, -20, 0], color: ['#fff', '#60A5FA', '#fff'] }}
+                transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', delay: 0.2 }}
               >
                 Ismail
               </motion.span>
             </motion.h1>
-            <motion.h2 
-              className="text-xl sm:text-2xl md:text-3xl gradient-text"
-              variants={itemVariants}
-            >
+            <motion.h2 className="text-xl sm:text-2xl md:text-3xl gradient-text" variants={itemVariants}>
               Python Developer | OdooERP | Problem Solver
             </motion.h2>
           </motion.div>
@@ -257,7 +235,7 @@ function App() {
       </motion.div>
 
       <div className="relative z-10 bg-gradient-to-b from-transparent via-gray-900 to-gray-900">
-        <motion.section 
+        <motion.section
           id="experience"
           className="pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-8 max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 100 }}
@@ -265,37 +243,33 @@ function App() {
           transition={{ duration: 0.8 }}
           viewport={{ once: false }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
-            whileInView={{
-              scale: [0.9, 1.1, 1],
-              opacity: [0, 1],
-            }}
+            whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
             transition={{ duration: 0.8 }}
           >
             Professional Experience
           </motion.h2>
-        
+
           {experienceData.map((experience) => (
-            <motion.div 
+            <motion.div
               key={experience.id}
               className="mt-8 sm:mt-16 relative"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <motion.div 
+              <motion.div
                 className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 p-1 rounded-lg"
                 whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                transition={{ type: 'spring', stiffness: 300 }}
               >
                 <div className="bg-gray-900/90 p-6 sm:p-8 rounded-lg backdrop-blur-sm relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 animate-gradient-x"></div>
-                  
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 animate-gradient-x" />
                   <div className="relative z-10">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
                       <div>
-                        <motion.h3 
+                        <motion.h3
                           className="text-2xl sm:text-3xl font-bold text-white mb-2"
                           initial={{ opacity: 0, x: -20 }}
                           whileInView={{ opacity: 1, x: 0 }}
@@ -303,7 +277,7 @@ function App() {
                         >
                           {experience.role}
                         </motion.h3>
-                        <motion.p 
+                        <motion.p
                           className="text-blue-400 text-lg"
                           initial={{ opacity: 0, x: -20 }}
                           whileInView={{ opacity: 1, x: 0 }}
@@ -312,7 +286,7 @@ function App() {
                           {experience.company}
                         </motion.p>
                       </div>
-                      <motion.div 
+                      <motion.div
                         className="mt-2 sm:mt-0 px-4 py-2 bg-blue-500/20 rounded-full"
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}
@@ -322,7 +296,7 @@ function App() {
                       </motion.div>
                     </div>
 
-                    <motion.div 
+                    <motion.div
                       className="space-y-4"
                       variants={containerVariants}
                       initial="hidden"
@@ -335,15 +309,15 @@ function App() {
                             key={index}
                             className="flex items-start space-x-3"
                             variants={itemVariants}
-                            whileHover={{ x: 10, transition: { type: "spring", stiffness: 300 } }}
+                            whileHover={{ x: 10, transition: { type: 'spring', stiffness: 300 } }}
                           >
                             <div className="mt-1">
                               <motion.div
                                 className="p-2 bg-blue-500/20 rounded-lg"
-                                whileHover={{ 
+                                whileHover={{
                                   scale: 1.2,
                                   rotate: 360,
-                                  backgroundColor: "rgba(59, 130, 246, 0.4)"
+                                  backgroundColor: 'rgba(59, 130, 246, 0.4)',
                                 }}
                                 transition={{ duration: 0.3 }}
                               >
@@ -356,7 +330,7 @@ function App() {
                       })}
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                       className="mt-6 flex flex-wrap gap-2"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -366,9 +340,9 @@ function App() {
                         <motion.span
                           key={tech}
                           className="px-3 py-1 bg-blue-500/10 text-blue-300 rounded-full text-sm"
-                          whileHover={{ 
+                          whileHover={{
                             scale: 1.1,
-                            backgroundColor: "rgba(59, 130, 246, 0.3)",
+                            backgroundColor: 'rgba(59, 130, 246, 0.3)',
                           }}
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
@@ -385,96 +359,78 @@ function App() {
           ))}
         </motion.section>
 
-        <motion.section 
+        <motion.section
           id="skills"
           className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
-            whileInView={{
-              scale: [0.9, 1.1, 1],
-              opacity: [0, 1],
-            }}
+            whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
             transition={{ duration: 0.8 }}
           >
             Skills & Expertise
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mt-8 sm:mt-16">
             {skills.map((skill, index) => (
-              <SkillBar
-                key={skill.name}
-                name={skill.name}
-                percentage={skill.percentage}
-                index={index}
-              />
+              <SkillBar key={skill.name} name={skill.name} percentage={skill.percentage} index={index} />
             ))}
           </div>
         </motion.section>
 
-        <motion.section 
+        <motion.section
           id="projects"
           className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
-            whileInView={{
-              scale: [0.9, 1.1, 1],
-              opacity: [0, 1],
-            }}
+            whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
             transition={{ duration: 0.8 }}
           >
             Featured Projects
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mt-8 sm:mt-16"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
           >
             {projects.map((project, index) => (
-              <ProjectCard
-                key={project.title}
-                {...project}
-                index={index}
-              />
+              <ProjectCard key={project.title} {...project} index={index} />
             ))}
           </motion.div>
         </motion.section>
 
-        <motion.section 
+        <motion.section
           id="contact"
           className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
+          <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
-            whileInView={{
-              scale: [0.9, 1.1, 1],
-              opacity: [0, 1],
-            }}
+            whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
             transition={{ duration: 0.8 }}
           >
             Get In Touch
           </motion.h2>
-          <motion.div 
+          <motion.div
             className="flex flex-wrap justify-center gap-4 sm:gap-8 mt-8 sm:mt-16"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
           >
             {[
-              { icon: Phone, href: "tel:03180690159", text: "03180690159" },
-              { icon: Mail, href: "mailto:ahsan.ismail0159@gmail.com", text: "ahsan.ismail0159@gmail.com" },
-              { icon: Github, href: "https://github.com/ahsan54", text: "GitHub" },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/ahsan-ismail-4b4763281/", text: "LinkedIn" },
+              { icon: Phone, href: 'tel:03180690159', text: '03180690159' },
+              { icon: Mail, href: 'mailto:ahsan.ismail0159@gmail.com', text: 'ahsan.ismail0159@gmail.com' },
+              { icon: Github, href: 'https://github.com/ahsan54', text: 'GitHub' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/ahsan-ismail-4b4763281/', text: 'LinkedIn' },
             ].map(({ icon: Icon, href, text }) => (
               <motion.a
                 key={href}
@@ -482,18 +438,15 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center text-white hover:text-blue-300 transition-all duration-300 text-sm sm:text-base"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.1,
-                  textShadow: "0 0 15px rgb(147, 197, 253)",
-                  color: "#60A5FA",
+                  textShadow: '0 0 15px rgb(147, 197, 253)',
+                  color: '#60A5FA',
                 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
-                  whileHover={{
-                    rotate: [0, -10, 10, -10, 0],
-                    transition: { duration: 0.5 },
-                  }}
+                  whileHover={{ rotate: [0, -10, 10, -10, 0], transition: { duration: 0.5 } }}
                 >
                   <Icon className="w-5 h-5 sm:w-6 sm:h-6 mr-2" />
                 </motion.div>
@@ -503,6 +456,54 @@ function App() {
           </motion.div>
         </motion.section>
       </div>
+
+      {/* Settings Button */}
+      <motion.button
+        className="fixed top-4 right-4 z-50 bg-blue-500/20 p-2 rounded-full text-white hover:bg-blue-500/40"
+        onClick={() => setIsPopupOpen(true)}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <Settings className="w-6 h-6" />
+      </motion.button>
+
+      {/* CV Popup */}
+      <AnimatePresence>
+        {isPopupOpen && (
+          <motion.div
+            className="fixed top-4 right-4 z-50 bg-yellow-400 p-4 rounded-lg shadow-lg"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <button
+              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+              onClick={() => setIsPopupOpen(false)}
+            >
+              ✕
+            </button>
+            <h3 className="text-lg font-bold mb-2">Download My CV</h3>
+            <p className="text-sm mb-4">Get my latest resume with all project details and experience!</p>
+            <button
+              className="bg-white text-yellow-600 font-semibold py-2 px-4 rounded mb-4 w-full"
+              onClick={handleDownloadCV}
+            >
+              Download Now
+            </button>
+            <div className="mt-4">
+              <h4 className="text-md font-semibold mb-2">Upload Your CV</h4>
+              <input
+                type="file"
+                accept=".pdf,.doc,.docx"
+                onChange={handleFileChange}
+                className="mb-2 w-full"
+              />
+              <p className="text-xs text-gray-700">Supported formats: PDF, DOC, DOCX (Max 10MB)</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
