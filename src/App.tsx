@@ -27,51 +27,51 @@ const projects = [
 {
     title: 'HRL Group',
     description: 'Developed the Dealer Management and sales warranty portal, attendance portal, leave request portal, grievance portal and emlpoyee expense portal.',
-    githubUrl: 'https://github.com/ahsan54/HRL-Group.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/HRL-Group.git',
     image: car_dealer,
   },
 
   {
     title: 'JNJ Polymer',
     description: 'Developed procurment, cost sheet builder, gate pass, late payment surcharge, dual approvals for sale,purchase,inventory,manufacturing,accounting and backdate_entries, expense module.',
-    githubUrl: 'https://github.com/ahsan54/J-J-Development.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/J-J-Development.git',
     image: jnj_polymer,
   },
   
   {
     title: 'Tijaarat Developers',
     description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
-    githubUrl: 'https://github.com/ahsan54/Tijaarat-Developers.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Tijaarat-Developers.git',
     image: tijImage,
   },
   {
     title: 'BSS Development',
     description: 'Developed and migrated multiple Odoo 16 modules, including dynamic cheque numbering, custom approval workflows, salary register reports, enhanced employee portals, dynamic payment vouchers, invoice customization, default journal configurations, HR document generation, and automated withholding tax calculations.',
-    githubUrl: 'https://github.com/ahsan54/BSS_Custom_Development.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/BSS_Custom_Development.git',
     image: bssImage,
   },
   {
     title: 'Hotel Reservation Module',
     description: 'Hotel reservation booking module for Manage bookings, check-ins/check-outs, and admin approval workflows with dynamic pricing, guest stay histories, and role-based access controls. Monitor operations via dashboards for room availability, booking trends, and guest insights.',
-    githubUrl: 'https://github.com/ahsan54/Hotel-Reservation-Management.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Hotel-Reservation-Management.git',
     image: hotelImage,
   },
   {
     title: 'Payment Voucher Module',
     description: 'Designed PV module to streamline payment processing with automated journal entries, featuring dynamically generated debit/credit lines linked to relevant journals. Integrated ir.sequence for different voucher and cheque numbers.',
-    githubUrl: 'https://github.com/ahsan54/PaymentVoucher.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/PaymentVoucher.git',
     image: voucherImage,
   },
   {
     title: 'Employee Loan Module',
     description: 'Developed an Odoo module for managing employee loans, automating loan application, approval, and installment tracking. It integrates accounting by updating journal entries, including profit JV, upon installment payments. The module also configures loan types, prevents duplicate loan applications.',
-    githubUrl: 'https://github.com/ahsan54/Employee-Loan-Management.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Employee-Loan-Management.git',
     image: coinsImage,
   },
   {
     title: 'Fleet Fuel Tank Module',
     description: 'Internship module tracking fuel consumption with advanced validation.',
-    githubUrl: 'https://github.com/ahsan54/Fleet-Fuel-Tank-.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Fleet-Fuel-Tank-.git',
     image: fleetImage,
   },
   {
@@ -83,25 +83,25 @@ const projects = [
   {
     title: 'Diabetes Prediction System',
     description: 'Machine learning-based system for predicting diabetes risk using patient data. It aims to predict the likelihood of an individual having diabetes using a logistic regression model.',
-    githubUrl: 'https://ahsan54.github.io/Diabetes_FrontEnd/',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/DiabetesPrediction.git',
     image: fypImage,
   },
   {
     title: 'Movement Detector',
     description: 'Project detects head movements using a webcam and sends a WhatsApp message via Twilio Web API to a desired number when head movement is detected.',
-    githubUrl: 'https://github.com/ahsan54/Head_Movement_Detector.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Head_Movement_Detector.git',
     image: headImage,
   },
   {
     title: 'Tailor Measurements Saver',
     description: 'Digital solution for storing and managing tailor measurements efficiently. Built using Python and Flask, this app allows you to perform CRUD on measurements effortlessly.',
-    githubUrl: 'https://github.com/ahsan54/Tailor-Measurements-Saver-App.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Tailor-Measurements-Saver-App.git',
     image: tailorImage,
   },
   {
     title: 'Patient Appointment Booking',
     description: 'Project developed to streamline the process of booking, checking available slots for a specific doctor, and managing clinic appointments.',
-    githubUrl: 'https://github.com/ahsan54/Clinic_ManageMent_Demo.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Clinic_ManageMent_Demo.git',
     image: appointmentImage,
   },
 ];
