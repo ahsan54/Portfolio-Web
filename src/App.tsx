@@ -1,7 +1,4 @@
 import React from 'react';
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Settings } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson } from 'lucide-react';
 import { AnimatedSection } from './components/AnimatedSection';
@@ -506,100 +503,6 @@ function App() {
           </motion.div>
         </motion.section>
       </div>
-
-{/* start here */}
-
-
-
-
-
-
-
-
-        
-        const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [cvFile, setCvFile] = useState(null);
-
-  const handleDownloadCV = () => {
-    if (cvFile) {
-      const url = window.URL.createObjectURL(cvFile);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'Ahsan_Ismail_CV.pdf';
-      a.click();
-      window.URL.revokeObjectURL(url);
-    } else {
-      alert('No CV uploaded yet!');
-    }
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file && (file.type === 'application/pdf' || file.type === 'application/msword' || file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') && file.size <= 10 * 1024 * 1024) {
-      setCvFile(file);
-    } else {
-      alert('Please upload a PDF, DOC, or DOCX file under 10MB!');
-    }
-  };
-
-  return (
-    <div>
-      {/* Settings Button */}
-      <motion.button
-        className="fixed top-4 right-4 z-50 bg-blue-500/20 p-2 rounded-full text-white hover:bg-blue-500/40"
-        onClick={() => setIsPopupOpen(true)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <Settings className="w-6 h-6" />
-      </motion.button>
-
-      {/* CV Popup */}
-      <AnimatePresence>
-        {isPopupOpen && (
-          <motion.div
-            className="fixed top-4 right-4 z-50 bg-yellow-400 p-4 rounded-lg shadow-lg"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-              onClick={() => setIsPopupOpen(false)}
-            >
-              ✕
-            </button>
-            <h3 className="text-lg font-bold mb-2">Download My CV</h3>
-            <p className="text-sm mb-4">Get my latest resume with all project details and experience!</p>
-            <button
-              className="bg-white text-yellow-600 font-semibold py-2 px-4 rounded mb-4 w-full"
-              onClick={handleDownloadCV}
-            >
-              Download Now
-            </button>
-            <div className="mt-4">
-              <h4 className="text-md font-semibold mb-2">Upload Your CV</h4>
-              <input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={handleFileChange}
-                className="mb-2 w-full"
-              />
-              <p className="text-xs text-gray-700">Supported formats: PDF, DOC, DOCX (Max 10MB)</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
-
-{/* end here */}
-
-
-        
     </div>
   );
 }
