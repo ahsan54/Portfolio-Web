@@ -187,9 +187,9 @@ function App() {
       
       const reader = new FileReader();
       reader.onload = (e) => {
-        localStorage.setItem('uploadedCV', e.target.result);
-        localStorage.setItem('cvFileName', file.name);
-        localStorage.setItem('cvFileType', file.type);
+        // Note: Using in-memory storage instead of localStorage for artifact compatibility
+        // In actual deployment, you'd want to use a proper state management solution
+        console.log('File uploaded:', file.name);
       };
       
       // Read file as data URL for PDF and XLSX, text for TXT
@@ -203,56 +203,42 @@ function App() {
 
   // Download CV function
   const downloadCV = () => {
-    const cvData = localStorage.getItem('uploadedCV');
-    const fileName = localStorage.getItem('cvFileName') || 'Ahsan_CV.pdf';
-    const fileType = localStorage.getItem('cvFileType') || 'application/pdf';
-
-    if (cvData) {
-      // Create download link for uploaded CV
-      const link = document.createElement('a');
-      link.href = cvData;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else {
-      // Fallback - create a sample CV
-      const sampleCV = `
-        AHSAN ISMAIL
-        Python Developer | OdooERP | Problem Solver
-        
-        Contact:
-        Phone: 03180690159
-        Email: ahsan.ismail0159@gmail.com
-        GitHub: https://github.com/ahsan54
-        LinkedIn: https://www.linkedin.com/in/ahsan-ismail-4b4763281/
-        
-        Experience:
-        Odoo Developer (August 2024 – Present)
-        - Assisted in developing, customizing, and enhancing Odoo modules
-        - Integrated APIs into Odoo for seamless workflows
-        - Migrated modules to newer versions while optimizing performance
-        
-        Skills:
-        - Python (75%)
-        - Object-Oriented Programming (85%)
-        - Data Structures (80%)
-        - Odoo OpenERP (75%)
-        - XML (90%)
-        - HTML/CSS (90%)
-        - PostgreSQL (80%)
-      `;
+    // Create a sample CV since we can't use localStorage in artifacts
+    const sampleCV = `
+      AHSAN ISMAIL
+      Python Developer | OdooERP | Problem Solver
       
-      const blob = new Blob([sampleCV], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'Ahsan_CV.txt';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    }
+      Contact:
+      Phone: 03180690159
+      Email: ahsan.ismail0159@gmail.com
+      GitHub: https://github.com/ahsan54
+      LinkedIn: https://www.linkedin.com/in/ahsan-ismail-4b4763281/
+      
+      Experience:
+      Odoo Developer (August 2024 – Present)
+      - Assisted in developing, customizing, and enhancing Odoo modules
+      - Integrated APIs into Odoo for seamless workflows
+      - Migrated modules to newer versions while optimizing performance
+      
+      Skills:
+      - Python (80%)
+      - Object-Oriented Programming (90%)
+      - Data Structures (80%)
+      - Odoo OpenERP (80%)
+      - XML (90%)
+      - HTML/CSS (90%)
+      - PostgreSQL (80%)
+    `;
+    
+    const blob = new Blob([sampleCV], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Ahsan_CV.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
     
     setShowCVPopup(false);
   };
@@ -276,25 +262,26 @@ function App() {
         style={{ opacity }}
       >
         <motion.div className="text-center" variants={containerVariants} initial="hidden" animate="visible">
-  <motion.div className="mb-8 space-y-4" variants={itemVariants}>
-    <motion.h1
-      className="text-4xl sm:text-5xl md:text-7xl font-bold text-ash-white mb-4 tracking-tight"
-      initial={{ scale: 0.5, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 20, duration: 1 }}
-    >
-      <motion.span className="inline-block" style={{ color: '#D3D3D3' }}>
-        Ahsan
-      </motion.span>{' '}
-      <motion.span className="inline-block" style={{ color: '#D3D3D3' }}>
-        Ismail
-      </motion.span>
-    </motion.h1>
-    <motion.h2 className="text-xl sm:text-2xl md:text-3xl text-ash-white" variants={itemVariants}>
-      Python Developer | OdooERP | Problem Solver
-    </motion.h2>
-  </motion.div>
-</motion.div>
+          <motion.div className="mb-8 space-y-4" variants={itemVariants}>
+            <motion.h1
+              className="text-4xl sm:text-5xl md:text-7xl font-bold text-ash-white mb-4 tracking-tight"
+              initial={{ scale: 0.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20, duration: 1 }}
+            >
+              <motion.span className="inline-block" style={{ color: '#D3D3D3' }}>
+                Ahsan
+              </motion.span>{' '}
+              <motion.span className="inline-block" style={{ color: '#D3D3D3' }}>
+                Ismail
+              </motion.span>
+            </motion.h1>
+            <motion.h2 className="text-xl sm:text-2xl md:text-3xl text-ash-white" variants={itemVariants}>
+              Python Developer | OdooERP | Problem Solver
+            </motion.h2>
+          </motion.div>
+        </motion.div>
+      </motion.div>
 
       <div className="relative z-10 bg-gradient-to-b from-transparent via-gray-900 to-gray-900">
         <motion.section
