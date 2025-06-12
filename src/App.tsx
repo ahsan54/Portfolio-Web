@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import './CVPopup.css';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson, Settings } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson, Settings, Download, X } from 'lucide-react';
 import { AnimatedSection } from './components/AnimatedSection';
 import { SkillBar } from './components/SkillBar';
 import { ProjectCard } from './components/ProjectCard';
@@ -153,6 +154,108 @@ function App() {
     { name: 'XML', percentage: 90 },
     { name: 'HTML/CSS', percentage: 90 },
   ];
+
+  // State for CV popup
+  const [showCVPopup, setShowCVPopup] = useState(false);
+  const [fileName, setFileName] = useState('');
+
+  // useEffect to show popup after 2 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCVPopup(true);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Handle file upload
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const allowedTypes = [
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/plain',
+      ];
+      
+      if (!allowedTypes.includes(file.type)) {
+        alert('Please upload a PDF, XLSX, or TXT file');
+        return;
+      }
+
+      setFileName(file.name);
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        localStorage.setItem('uploadedCV', e.target.result);
+        localStorage.setItem('cvFileName', file.name);
+        localStorage.setItem('cvFileType', file.type);
+      };
+      
+      // Read file as data URL for PDF and XLSX, text for TXT
+      if (file.type === 'text/plain') {
+        reader.readAsText(file);
+      } else {
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+
+  // Download CV function
+  const downloadCV = () => {
+    const cvData = localStorage.getItem('uploadedCV');
+    const fileName = localStorage.getItem('cvFileName') || 'Ahsan_CV.pdf';
+    const fileType = localStorage.getItem('cvFileType') || 'application/pdf';
+
+    if (cvData) {
+      // Create download link for uploaded CV
+      const link = document.createElement('a');
+      link.href = cvData;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      // Fallback - create a sample CV
+      const sampleCV = `
+        AHSAN ISMAIL
+        Python Developer | OdooERP | Problem Solver
+        
+        Contact:
+        Phone: 03180690159
+        Email: ahsan.ismail0159@gmail.com
+        GitHub: https://github.com/ahsan54
+        LinkedIn: https://www.linkedin.com/in/ahsan-ismail-4b4763281/
+        
+        Experience:
+        Odoo Developer (August 2024 – Present)
+        - Assisted in developing, customizing, and enhancing Odoo modules
+        - Integrated APIs into Odoo for seamless workflows
+        - Migrated modules to newer versions while optimizing performance
+        
+        Skills:
+        - Python (75%)
+        - Object-Oriented Programming (85%)
+        - Data Structures (80%)
+        - Odoo OpenERP (75%)
+        - XML (90%)
+        - HTML/CSS (90%)
+        - PostgreSQL (80%)
+      `;
+      
+      const blob = new Blob([sampleCV], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Ahsan_CV.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+    
+    setShowCVPopup(false);
+  };
 
   return (
     <div className="relative">
@@ -425,7 +528,64 @@ function App() {
         </motion.section>
       </div>
 
-      
+      {/* Settings Button */}
+      <motion.button
+        className="fixed top-4 right-4 z-50 bg-blue-500/20 p-2 rounded-full text-white hover:bg-blue-500/40"
+        onClick={() => setShowCVPopup(true)}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        <Settings className="w-6 h-6" />
+      </motion.button>
+
+      {/* CV Popup */}
+      <AnimatePresence>
+        {showCVPopup && (
+          <motion.div
+            className="fixed top-4 right-4 z-50 cv-popup"
+            initial={{ opacity: 0, x: 100, scale: 0.8 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 100, scale: 0.8 }}
+            transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+          >
+            <div className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-500 p-4 rounded-xl shadow-2xl max-w-sm animate-bounce-in">
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center">
+                  <Download className="w-5 h-5 text-white mr-2" />
+                  <h3 className="font-bold text-white text-sm">Download My CV</h3>
+                </div>
+                <button
+                  onClick={() => setShowCVPopup(false)}
+                  className="text-white hover:text-gray-200 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-white text-xs mb-3 opacity-90">
+                Get my latest resume with all project details and experience!
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={downloadCV}
+                  className="flex-1 bg-white text-yellow-600 px-3 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Download Now
+                </button>
+                <label className="bg-yellow-600 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-yellow-700 transition-colors flex items-center cursor-pointer">
+                  <Settings className="w-3 h-3 mr-1" />
+                  <span>Upload CV</span>
+                  <input
+                    type="file"
+                    accept=".pdf,.xlsx,.txt"
+                    className="hidden"
+                    onChange={handleFileUpload}
+                  />
+                </label>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
