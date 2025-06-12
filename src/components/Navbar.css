@@ -80,7 +80,7 @@
                0 0 16px rgba(96, 165, 250, 0.4);
 }
 
-/* Active Indicator - Centered and sized to text */
+/* Active Indicator - Fixed positioning */
 .active-indicator {
   background: linear-gradient(90deg, 
     rgba(255, 215, 0, 0.8) 0%, 
@@ -88,7 +88,9 @@
     rgba(255, 215, 0, 0.8) 100%);
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.8),
               0 0 20px rgba(255, 215, 0, 0.6);
-  width: 80%; /* Adjust this percentage to match text width */
+  /* Ensure proper centering */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 /* Enhanced Particles - Only rising dots */
