@@ -276,34 +276,25 @@ function App() {
         style={{ opacity }}
       >
         <motion.div className="text-center" variants={containerVariants} initial="hidden" animate="visible">
-          <motion.div className="mb-8 space-y-4" variants={itemVariants}>
-            <motion.h1
-              className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight"
-              initial={{ scale: 0.5, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 20, duration: 1 }}
-            >
-              <motion.span
-                className="inline-block"
-                animate={{ y: [0, -20, 0], color: ['#fff', '#60A5FA', '#fff'] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
-              >
-                Ahsan
-              </motion.span>{' '}
-              <motion.span
-                className="inline-block"
-                animate={{ y: [0, -20, 0], color: ['#fff', '#60A5FA', '#fff'] }}
-                transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', delay: 0.2 }}
-              >
-                Ismail
-              </motion.span>
-            </motion.h1>
-            <motion.h2 className="text-xl sm:text-2xl md:text-3xl gradient-text" variants={itemVariants}>
-              Python Developer | OdooERP | Problem Solver
-            </motion.h2>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+  <motion.div className="mb-8 space-y-4" variants={itemVariants}>
+    <motion.h1
+      className="text-4xl sm:text-5xl md:text-7xl font-bold text-ash-white mb-4 tracking-tight"
+      initial={{ scale: 0.5, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 20, duration: 1 }}
+    >
+      <motion.span className="inline-block" style={{ color: '#D3D3D3' }}>
+        Ahsan
+      </motion.span>{' '}
+      <motion.span className="inline-block" style={{ color: '#D3D3D3' }}>
+        Ismail
+      </motion.span>
+    </motion.h1>
+    <motion.h2 className="text-xl sm:text-2xl md:text-3xl text-ash-white" variants={itemVariants}>
+      Python Developer | OdooERP | Problem Solver
+    </motion.h2>
+  </motion.div>
+</motion.div>
 
       <div className="relative z-10 bg-gradient-to-b from-transparent via-gray-900 to-gray-900">
         <motion.section
