@@ -81,61 +81,61 @@ export function Navbar() {
       onMouseMove={handleMouseMove}
       className="fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-50 rounded-full py-3 px-6 sm:py-4 sm:px-8 shadow-2xl w-auto max-w-[95vw] overflow-hidden navbar-container"
     >
-      {/* Smoky Flame Background - No boxes */}
+      {/* Golden Flame Background */}
       <div className="absolute inset-0 rounded-full overflow-hidden">
-        {/* Smooth flame layers */}
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-amber-600/20 via-orange-500/10 to-transparent rounded-full" />
+        
+        {/* Animated flame layers */}
         <motion.div
-          className="flame-smoke-1"
+          className="flame-layer-1"
           animate={{
-            y: [0, -8, 0],
-            opacity: [0.2, 0.4, 0.2],
-            scale: [1, 1.1, 1],
+            y: [0, -10, 0],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="flame-layer-2"
+          animate={{
+            y: [0, -15, 0],
+            opacity: [0.2, 0.5, 0.2],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.3,
+          }}
+        />
+        <motion.div
+          className="flame-layer-3"
+          animate={{
+            y: [0, -20, 0],
+            opacity: [0.1, 0.4, 0.1],
           }}
           transition={{
             duration: 3,
             repeat: Infinity,
             ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="flame-smoke-2"
-          animate={{
-            y: [0, -12, 0],
-            opacity: [0.15, 0.35, 0.15],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 0.5,
-          }}
-        />
-        <motion.div
-          className="flame-smoke-3"
-          animate={{
-            y: [0, -15, 0],
-            opacity: [0.1, 0.3, 0.1],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
+            delay: 0.6,
           }}
         />
         
-        {/* Mouse follow glow - smooth circular */}
+        {/* Mouse follow glow */}
         <motion.div
-          className="absolute w-24 h-24 rounded-full pointer-events-none mouse-glow"
+          className="absolute w-32 h-32 rounded-full pointer-events-none"
           style={{
-            left: mousePosition.x - 48,
-            top: mousePosition.y - 48,
+            background: 'radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%)',
+            left: mousePosition.x - 64,
+            top: mousePosition.y - 64,
           }}
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
+            scale: [1, 1.2, 1],
           }}
           transition={{
             duration: 2,
@@ -167,6 +167,19 @@ export function Navbar() {
               }}
               whileTap={{ scale: 0.95 }}
             >
+              {/* Item background glow */}
+              {activeSection === id && (
+                <motion.div
+                  layoutId="navItemBg"
+                  className="absolute inset-0 rounded-full bg-gradient-to-r from-amber-500/30 via-orange-500/30 to-amber-500/30"
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 400, 
+                    damping: 40 
+                  }}
+                />
+              )}
+              
               <span className="relative z-10">{label}</span>
               
               {/* Active indicator */}
@@ -186,25 +199,25 @@ export function Navbar() {
         ))}
       </ul>
 
-      {/* Floating particles */}
+      {/* Particle effects */}
       <div className="particles-container">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(6)].map((_, i) => (
           <motion.div
             key={i}
-            className="floating-particle"
+            className="particle"
             animate={{
-              y: [0, -60],
-              opacity: [0, 0.6, 0],
-              x: [0, Math.sin(i) * 10],
+              y: [0, -100],
+              opacity: [0, 1, 0],
+              scale: [0, 1, 0],
             }}
             transition={{
-              duration: 4,
+              duration: 3,
               repeat: Infinity,
-              delay: i * 0.6,
+              delay: i * 0.5,
               ease: "easeOut",
             }}
             style={{
-              left: `${10 + i * 10}%`,
+              left: `${15 + i * 15}%`,
             }}
           />
         ))}
@@ -212,4 +225,3 @@ export function Navbar() {
     </motion.nav>
   );
 }
-
