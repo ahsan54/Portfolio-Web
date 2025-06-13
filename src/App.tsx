@@ -76,7 +76,7 @@ const projects = [
   {
     title: 'Hospital Management Module',
     description: 'Internship module managing patients, doctors, and appointments in Odoo.',
-    githubUrl: 'https://github.com/ahsan54/Hospital-Management-Odoo.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Hospital-Management-Odoo.git',
     image: hospitalImage,
   },
   {
@@ -224,7 +224,7 @@ function App() {
         Contact:
         Phone: 03180690159
         Email: ahsan.ismail0159@gmail.com
-        GitHub: https://github.com/ahsan54
+        GitHub: https://github.com/M-Ahsan-Ismail
         LinkedIn: https://www.linkedin.com/in/ahsan-ismail-4b4763281/
         
         Experience:
@@ -505,7 +505,7 @@ function App() {
             {[
               { icon: Phone, href: 'tel:03180690159', text: '03180690159' },
               { icon: Mail, href: 'mailto:ahsan.ismail0159@gmail.com', text: 'ahsan.ismail0159@gmail.com' },
-              { icon: Github, href: 'https://github.com/ahsan54', text: 'GitHub' },
+              { icon: Github, href: 'https://github.com/M-Ahsan-Ismail', text: 'GitHub' },
               { icon: Linkedin, href: 'https://www.linkedin.com/in/ahsan-ismail-4b4763281/', text: 'LinkedIn' },
             ].map(({ icon: Icon, href, text }) => (
               <motion.a
