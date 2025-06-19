@@ -315,6 +315,7 @@ export default function ModernSkillsSection() {
   return (
     <motion.section
       ref={sectionRef}
+      id="skills"
       className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
