@@ -184,7 +184,7 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
               >
                 {percentage}%
               </motion.span>
-            </div>
+            </motion.div>
           </div>
           
           {/* Progress container */}
@@ -288,7 +288,7 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
             >
               {percentage >= 90 ? 'Expert' : percentage >= 70 ? 'Advanced' : percentage >= 50 ? 'Intermediate' : 'Beginner'}
             </motion.span>
-          </div>
+          </motion.div>
         </div>
       </div>
     </motion.div>
