@@ -302,14 +302,14 @@ export default function ModernSkillsSection() {
   });
 
   const skills = [
-    { name: 'Python', percentage: 90, category: 'Programming', icon: '🐍' },
-    { name: 'Object Oriented Programming', percentage: 95, category: 'Paradigm', icon: '🧩' },
-    { name: 'Data Structures', percentage: 85, category: 'Computer Science', icon: '🌳' },
-    { name: 'PostgreSQL', percentage: 88, category: 'Database', icon: '🗄️' },
-    { name: 'OdooERP', percentage: 92, category: 'Framework', icon: '⚙️' },
-    { name: 'QWeb', percentage: 87, category: 'Templating', icon: '📝' },
-    { name: 'XML', percentage: 93, category: 'Markup', icon: '📋' },
-    { name: 'HTML/CSS', percentage: 96, category: 'Frontend', icon: '🎨' },
+     { "name": "Python", "percentage": 80, "category": "Programming Language", "icon": "🐍" },
+  { "name": "OdooERP", "percentage": 90, "category": "ERP Framework", "icon": "🏢" },
+  { "name": "Rest Apis", "percentage": 90, "category": "API", "icon": "🔌" },
+  { "name": "Object Oriented Programming", "percentage": 85, "category": "Paradigm", "icon": "🧩" },
+  { "name": "Data Structures", "percentage": 80, "category": "Engineering", "icon": "🌳" },
+  { "name": "PostgreSQL", "percentage": 75, "category": "Database", "icon": "🗃️" },
+  { "name": "QWeb", "percentage": 90, "category": "Templating Engine", "icon": "📄" },
+  { "name": "XML/HTML/CSS", "percentage": 80, "category": "Web Technologies", "icon": "🌐" }
   ];
 
   return (
@@ -402,10 +402,10 @@ export default function ModernSkillsSection() {
         transition={{ duration: 0.8, delay: 0.8 }}
       >
         {[
-          { label: 'Technologies', value: '8+' },
-          { label: 'Years Experience', value: '5+' },
-          { label: 'Projects Completed', value: '50+' },
-          { label: 'Average Proficiency', value: '90%' }
+          { label: 'Technologies', value: '8+' }, 
+          { label: 'Years Experience', value: '1' },
+          { label: 'Projects Completed', value: '5+' },
+          { label: 'Average Proficiency', value: '85%' }
         ].map((stat, index) => (
           <motion.div
             key={stat.label}
