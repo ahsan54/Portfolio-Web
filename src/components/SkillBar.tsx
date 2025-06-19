@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useState } from 'react';
 
@@ -6,103 +6,425 @@ interface SkillBarProps {
   name: string;
   percentage: number;
   index: number;
+  category?: string;
+  icon?: string;
 }
 
-export function SkillBar({ name, percentage, index }: SkillBarProps) {
+function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡" }: SkillBarProps) {
   const [ref, inView] = useInView({
     triggerOnce: false,
-    threshold: 0.2,
+    threshold: 0.1,
   });
-  const [windowHeight, setWindowHeight] = useState(0);
+  
+  const [isHovered, setIsHovered] = useState(false);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const rotateX = useTransform(mouseY, [-300, 300], [10, -10]);
+  const rotateY = useTransform(mouseX, [-300, 300], [-10, 10]);
+  
+  const springConfig = { damping: 25, stiffness: 700 };
+  const x = useSpring(rotateX, springConfig);
+  const y = useSpring(rotateY, springConfig);
 
-  useEffect(() => {
-    setWindowHeight(window.innerHeight);
-    const handleResize = () => setWindowHeight(window.innerHeight);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    mouseX.set(e.clientX - centerX);
+    mouseY.set(e.clientY - centerY);
+  };
 
-  const center_y = windowHeight / 2;
-  const original_top = index * 146; // Assuming 140px height + 6px margin
-  const initial_y = center_y - original_top;
-  const initial_x = index % 2 === 0 ? -50 : 50; // Outward movement
+  const getGradient = (index: number) => {
+    const gradients = [
+      'from-purple-500 via-pink-500 to-red-500',
+      'from-blue-500 via-cyan-500 to-teal-500',
+      'from-green-400 via-emerald-500 to-cyan-500',
+      'from-yellow-400 via-orange-500 to-red-500',
+      'from-indigo-500 via-purple-500 to-pink-500',
+      'from-rose-400 via-fuchsia-500 to-indigo-500',
+      'from-amber-400 via-orange-500 to-pink-500',
+      'from-lime-400 via-green-500 to-emerald-600'
+    ];
+    return gradients[index % gradients.length];
+  };
+
+  const getIconGradient = (index: number) => {
+    const iconGradients = [
+      'text-purple-400',
+      'text-cyan-400', 
+      'text-emerald-400',
+      'text-orange-400',
+      'text-pink-400',
+      'text-fuchsia-400',
+      'text-amber-400',
+      'text-lime-400'
+    ];
+    return iconGradients[index % iconGradients.length];
+  };
 
   return (
     <motion.div
       ref={ref}
-      initial={{ x: 0, y: initial_y, opacity: 0 }} // Start from center y, no x movement initially
-      animate={inView ? { x: initial_x, y: 0, opacity: 1 } : { x: 0, y: initial_y, opacity: 0 }} // Move outward and up to position
-      transition={{ duration: 0.8, delay: index * 0.1, ease: 'easeOut' }}
-      whileHover={{
-        scale: 1.1,
-        boxShadow: '0 20px 40px 0px rgba(0, 0, 0, 0.4)',
-        rotate: 2,
-        transition: { duration: 0.5, ease: 'easeInOut' },
+      initial={{ 
+        opacity: 0, 
+        y: 100,
+        scale: 0.8,
+        rotateX: -15
       }}
-      className="relative mb-6 overflow-hidden rounded-lg group glass-effect hover-card animated-border"
-      style={{ minHeight: '140px' }}
+      animate={inView ? { 
+        opacity: 1, 
+        y: 0,
+        scale: 1,
+        rotateX: 0
+      } : { 
+        opacity: 0, 
+        y: 100,
+        scale: 0.8,
+        rotateX: -15
+      }}
+      transition={{ 
+        duration: 0.8, 
+        delay: index * 0.1,
+        type: "spring",
+        stiffness: 100,
+        damping: 20
+      }}
+      style={{
+        rotateX: x,
+        rotateY: y,
+        transformStyle: "preserve-3d"
+      }}
+      whileHover={{
+        scale: 1.05,
+        z: 50,
+        transition: { duration: 0.3 }
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setIsHovered(false);
+        mouseX.set(0);
+        mouseY.set(0);
+      }}
+      className="group cursor-pointer"
     >
-      <div className="absolute inset-0 animated_bg opacity-50"></div>
-      <div className="relative z-10 p-6 h-full flex flex-col justify-center">
-        <div className="flex justify-between mb-2">
-          <motion.h3 
-            className="text-2xl font-semibold text-white group-hover:text-blue-300 transition-colors glow-text"
-            whileHover={{
-              scale: 1.1,
-              textShadow: "0 0 15px rgba(96, 165, 250, 1), 0 0 30px rgba(96, 165, 250, 0.9)",
-              rotate: 2,
-              transition: { duration: 0.5, ease: 'easeInOut' },
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-900/90 backdrop-blur-xl border border-gray-700/50 shadow-2xl">
+        {/* Animated background mesh */}
+        <div className="absolute inset-0 opacity-30">
+          <div className={`absolute inset-0 bg-gradient-to-br ${getGradient(index)} mix-blend-multiply`}></div>
+          <motion.div 
+            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"
+            animate={{
+              rotate: [0, 360],
             }}
-          >
-            {name}
-          </motion.h3>
-          <motion.span 
-            className="text-base font-medium text-blue-300 group-hover:text-blue-200 transition-colors"
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{
-              scale: 1.2,
-              textShadow: "0 0 10px rgba(147, 197, 253, 0.8)",
-              transition: { duration: 0.5, ease: 'easeInOut' },
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear"
             }}
-          >
-            {percentage}%
-          </motion.span>
-        </div>
-        
-        <div className="w-full bg-gray-700/50 rounded-full h-5 overflow-hidden skill-progress">
-          <motion.div
-            className="h-5 rounded-full bg-gradient-to-r from-blue-500 via-blue-400 to-blue-300"
-            initial={{ width: 0 }}
-            animate={inView ? { width: `${percentage}%` } : { width: 0 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            style={{
-              boxShadow: '0 0 20px rgba(96, 165, 250, 0.5)',
-            }}
-            whileHover={{
-              scaleX: 1.1,
-              boxShadow: '0 0 40px rgba(96, 165, 250, 0.9)',
-              rotate: 1,
-              transition: { duration: 0.5, ease: 'easeInOut' },
-            }}
-          />
+          ></motion.div>
         </div>
 
-        <motion.div 
-          className="mt-4 text-sm text-gray-400"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          whileHover={{
-            scale: 1.05,
-            color: '#a0aec0',
-            transition: { duration: 0.5, ease: 'easeInOut' },
+        {/* Glow effect */}
+        <motion.div
+          className={`absolute -inset-0.5 bg-gradient-to-r ${getGradient(index)} rounded-2xl blur-sm`}
+          animate={{
+            opacity: isHovered ? 0.6 : 0.2,
           }}
-        >
-          {/* Skill description goes here */}
-        </motion.div>
+          transition={{ duration: 0.3 }}
+        ></motion.div>
+
+        {/* Content */}
+        <div className="relative z-10 p-6 h-full">
+          <div className="flex items-start justify-between mb-4">
+            <div className="flex items-center space-x-3">
+              <motion.div
+                className={`text-2xl ${getIconGradient(index)} filter drop-shadow-lg`}
+                whileHover={{ 
+                  scale: 1.3, 
+                  rotate: [0, -10, 10, 0],
+                  filter: "drop-shadow(0 0 8px currentColor)"
+                }}
+                transition={{ duration: 0.5 }}
+              >
+                {icon}
+              </motion.div>
+              <div>
+                <motion.h3 
+                  className="text-xl font-bold text-white group-hover:text-gray-100 transition-colors duration-300"
+                  style={{ transform: "translateZ(20px)" }}
+                >
+                  {name}
+                </motion.h3>
+                <motion.span 
+                  className="text-xs text-gray-400 uppercase tracking-wider font-medium"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                  {category}
+                </motion.span>
+              </div>
+            </div>
+            
+            <motion.div 
+              className="text-right"
+              style={{ transform: "translateZ(15px)" }}
+            >
+              <motion.span 
+                className={`text-2xl font-bold ${getIconGradient(index)} filter drop-shadow-sm`}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, type: "spring" }}
+                whileHover={{
+                  scale: 1.2,
+                  filter: "drop-shadow(0 0 8px currentColor)"
+                }}
+              >
+                {percentage}%
+              </motion.span>
+            </div>
+          </div>
+          
+          {/* Progress container */}
+          <div className="relative">
+            <div className="w-full bg-gray-700/30 rounded-full h-3 overflow-hidden backdrop-blur-sm border border-gray-600/30">
+              <motion.div
+                className={`h-3 rounded-full bg-gradient-to-r ${getGradient(index)} relative overflow-hidden`}
+                initial={{ width: 0, opacity: 0 }}
+                animate={inView ? { 
+                  width: `${percentage}%`, 
+                  opacity: 1 
+                } : { 
+                  width: 0, 
+                  opacity: 0 
+                }}
+                transition={{ 
+                  duration: 1.5, 
+                  delay: index * 0.1 + 0.5,
+                  ease: "easeOut" 
+                }}
+                whileHover={{
+                  boxShadow: `0 0 20px ${index % 2 === 0 ? '#8b5cf6' : '#06b6d4'}`,
+                }}
+              >
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                  animate={{
+                    x: ['-100%', '100%'],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "linear",
+                    delay: index * 0.2
+                  }}
+                ></motion.div>
+              </motion.div>
+            </div>
+            
+            {/* Floating particles */}
+            {isHovered && (
+              <div className="absolute inset-0 pointer-events-none">
+                {[...Array(6)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className={`absolute w-1 h-1 ${getIconGradient(index)} rounded-full`}
+                    initial={{ 
+                      x: Math.random() * 100 + '%',
+                      y: '50%',
+                      opacity: 0,
+                      scale: 0
+                    }}
+                    animate={{
+                      y: [50, 20, 5],
+                      opacity: [0, 1, 0],
+                      scale: [0, 1, 0],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      delay: i * 0.3,
+                      ease: "easeOut"
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Expertise level indicator */}
+          <motion.div 
+            className="mt-4 flex items-center justify-between"
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <div className="flex space-x-1">
+              {[...Array(5)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className={`w-2 h-2 rounded-full ${
+                    i < Math.floor(percentage / 20) 
+                      ? `bg-gradient-to-r ${getGradient(index)}` 
+                      : 'bg-gray-600/50'
+                  }`}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={inView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                  transition={{ 
+                    duration: 0.3, 
+                    delay: 0.8 + i * 0.1,
+                    type: "spring"
+                  }}
+                  whileHover={{ scale: 1.5 }}
+                />
+              ))}
+            </div>
+            <motion.span 
+              className="text-xs text-gray-400 font-medium"
+              whileHover={{ color: '#9ca3af' }}
+            >
+              {percentage >= 90 ? 'Expert' : percentage >= 70 ? 'Advanced' : percentage >= 50 ? 'Intermediate' : 'Beginner'}
+            </motion.span>
+          </div>
+        </div>
       </div>
     </motion.div>
+  );
+}
+
+export default function ModernSkillsSection() {
+  const [sectionRef, sectionInView] = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
+  const skills = [
+    { name: 'Python', percentage: 90, category: 'Programming', icon: '🐍' },
+    { name: 'Object Oriented Programming', percentage: 95, category: 'Paradigm', icon: '🧩' },
+    { name: 'Data Structures', percentage: 85, category: 'Computer Science', icon: '🌳' },
+    { name: 'PostgreSQL', percentage: 88, category: 'Database', icon: '🗄️' },
+    { name: 'OdooERP', percentage: 92, category: 'Framework', icon: '⚙️' },
+    { name: 'QWeb', percentage: 87, category: 'Templating', icon: '📝' },
+    { name: 'XML', percentage: 93, category: 'Markup', icon: '📋' },
+    { name: 'HTML/CSS', percentage: 96, category: 'Frontend', icon: '🎨' },
+  ];
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-1/4 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 -right-40 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+      </div>
+
+      {/* Header */}
+      <div className="text-center mb-16 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+          transition={{ duration: 0.8 }}
+          className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-full border border-purple-500/30 mb-6"
+        >
+          <span className="text-2xl">⚡</span>
+          <span className="text-sm text-gray-300 font-medium">TECHNICAL EXPERTISE</span>
+        </motion.div>
+        
+        <motion.h2
+          className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-br from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-6"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={sectionInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          Skills & Expertise
+        </motion.h2>
+        
+        <motion.p
+          className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
+          Crafting digital experiences with cutting-edge technologies and proven methodologies. 
+          Each skill represents countless hours of dedication and real-world application.
+        </motion.p>
+      </div>
+
+      {/* Skills Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 lg:gap-8 relative z-10">
+        {skills.map((skill, index) => (
+          <SkillBar 
+            key={skill.name} 
+            name={skill.name} 
+            percentage={skill.percentage} 
+            index={index}
+            category={skill.category}
+            icon={skill.icon}
+          />
+        ))}
+      </div>
+
+      {/* Stats Footer */}
+      <motion.div
+        className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+        initial={{ opacity: 0, y: 50 }}
+        animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+      >
+        {[
+          { label: 'Technologies', value: '8+' },
+          { label: 'Years Experience', value: '5+' },
+          { label: 'Projects Completed', value: '50+' },
+          { label: 'Average Proficiency', value: '90%' }
+        ].map((stat, index) => (
+          <motion.div
+            key={stat.label}
+            className="p-4 rounded-xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50"
+            whileHover={{ scale: 1.05, y: -5 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="text-2xl font-bold text-white mb-1"
+              initial={{ scale: 0 }}
+              animate={sectionInView ? { scale: 1 } : { scale: 0 }}
+              transition={{ duration: 0.5, delay: 1 + index * 0.1, type: "spring" }}
+            >
+              {stat.value}
+            </motion.div>
+            <div className="text-sm text-gray-400">{stat.label}</div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </motion.section>
   );
 }
