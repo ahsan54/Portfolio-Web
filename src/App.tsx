@@ -435,7 +435,7 @@ function App() {
           ))}
         </motion.section>
 
-        <motion.section
+{/*         <motion.section
           id="skills"
           className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
           initial={{ opacity: 0 }}
@@ -454,7 +454,7 @@ function App() {
               <SkillBar key={skill.name} name={skill.name} percentage={skill.percentage} index={index} />
             ))}
           </div>
-        </motion.section>
+        </motion.section> */}
 
         <motion.section
           id="projects"
