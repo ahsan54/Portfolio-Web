@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CVPopup.css';
-import ModernSkillsSection from './SkillBar';
+import ModernSkillsSection from './components/SkillBar';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson, Settings, Download, X } from 'lucide-react';
 import { AnimatedSection } from './components/AnimatedSection';
