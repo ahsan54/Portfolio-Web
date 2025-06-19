@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CVPopup.css';
-import ModernSkillsSection from './components/SkillBar'; // Already imported
+import ModernSkillsSection from './components/SkillBar';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson, Settings, Download, X } from 'lucide-react';
 import { AnimatedSection } from './components/AnimatedSection';
@@ -25,7 +25,103 @@ import tailorImage from './img/tailor.png';
 import appointmentImage from './img/appointment.png';
 import hotelImage from './img/hotel_background.jpg';
 
-// ... (projects and experienceData arrays remain unchanged)
+const projects = [
+  {
+    title: 'HRL Group',
+    description: 'Developed the Dealer Management and sales warranty portal, attendance portal, leave request portal, grievance portal and employee expense portal.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/HRL-Group.git',
+    image: car_dealer,
+  },
+  {
+    title: 'JNJ Polymer',
+    description: 'Developed procurement, cost sheet builder, gate pass, late payment surcharge, dual approvals for sale, purchase, inventory, manufacturing, accounting and backdate_entries, expense module.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/J-J-Development.git',
+    image: jnj_polymer,
+  },
+  {
+    title: 'Tijaarat Developers',
+    description: 'Assisted in HRMS and portal customization, along with purchase, inventory, accounting, requisition, and sales modules. Migrated HR functionalities to Odoo 17. Developed maintenance cost tracking, quality checks in inventory, fund requisition management, purchase requisition comparison, dynamic purchase reports, and global discount handling in purchase orders.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Tijaarat-Developers.git',
+    image: tijImage,
+  },
+  {
+    title: 'BSS Development',
+    description: 'Developed and migrated multiple Odoo 16 modules, including dynamic cheque numbering, custom approval workflows, salary register reports, enhanced employee portals, dynamic payment vouchers, invoice customization, default journal configurations, HR document generation, and automated withholding tax calculations.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/BSS_Custom_Development.git',
+    image: bssImage,
+  },
+  {
+    title: 'Hotel Reservation Module',
+    description: 'Hotel reservation booking module for managing bookings, check-ins/check-outs, and admin approval workflows with dynamic pricing, guest stay histories, and role-based access controls. Monitor operations via dashboards for room availability, booking trends, and guest insights.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Hotel-Reservation-Management.git',
+    image: hotelImage,
+  },
+  {
+    title: 'Payment Voucher Module',
+    description: 'Designed PV module to streamline payment processing with automated journal entries, featuring dynamically generated debit/credit lines linked to relevant journals. Integrated ir.sequence for different voucher and cheque numbers.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/PaymentVoucher.git',
+    image: voucherImage,
+  },
+  {
+    title: 'Employee Loan Module',
+    description: 'Developed an Odoo module for managing employee loans, automating loan application, approval, and installment tracking. It integrates accounting by updating journal entries, including profit JV, upon installment payments. The module also configures loan types, prevents duplicate loan applications.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Employee-Loan-Management.git',
+    image: coinsImage,
+  },
+  {
+    title: 'Fleet Fuel Tank Module',
+    description: 'Internship module tracking fuel consumption with advanced validation.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Fleet-Fuel-Tank-.git',
+    image: fleetImage,
+  },
+  {
+    title: 'Hospital Management Module',
+    description: 'Internship module managing patients, doctors, and appointments in Odoo.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Hospital-Management-Odoo.git',
+    image: hospitalImage,
+  },
+  {
+    title: 'Diabetes Prediction System',
+    description: 'Machine learning-based system for predicting diabetes risk using patient data. It aims to predict the likelihood of an individual having diabetes using a logistic regression model.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/DiabetesPrediction.git',
+    image: fypImage,
+  },
+  {
+    title: 'Movement Detector',
+    description: 'Project detects head movements using a webcam and sends a WhatsApp message via Twilio Web API to a desired number when head movement is detected.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Head_Movement_Detector.git',
+    image: headImage,
+  },
+  {
+    title: 'Tailor Measurements Saver',
+    description: 'Digital solution for storing and managing tailor measurements efficiently. Built using Python and Flask, this app allows you to perform CRUD on measurements effortlessly.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Tailor-Measurements-Saver-App.git',
+    image: tailorImage,
+  },
+  {
+    title: 'Patient Appointment Booking',
+    description: 'Project developed to streamline the process of booking, checking available slots for a specific doctor, and managing clinic appointments.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Clinic_ManageMent_Demo.git',
+    image: appointmentImage,
+  },
+];
+
+const experienceData = [
+  {
+    id: 1,
+    role: 'Odoo Developer',
+    period: 'August 2024 – Present',
+    company: 'Business Solutions & Services',
+    achievements: [
+      { icon: Code2, text: 'Developing, customizing, and enhancing Odoo modules.' },
+      { icon: GitBranch, text: 'Working on portals using controller APIs for seamless workflows.' },
+      { icon: GitMerge, text: 'Migrated modules to newer versions while optimizing performance.' },
+      { icon: Database, text: 'Developed advanced QWeb PDF and Excel reports.' },
+      { icon: FileJson, text: 'Collaborated with team leads to deliver high-quality solutions.' },
+    ],
+    techStack: ['Odoo', 'Python', 'PostgreSQL', 'XML'],
+  },
+];
 
 function App() {
   const { scrollYProgress } = useScroll();
@@ -48,6 +144,8 @@ function App() {
       transition: { type: 'spring', stiffness: 100 },
     },
   };
+
+  <ModernSkillsSection />
 
   // State for CV popup
   const [showCVPopup, setShowCVPopup] = useState(false);
@@ -179,16 +277,16 @@ function App() {
             >
               <motion.span
                 className="inline-block"
-                style={{ color: '#F5F5F5' }}
-                animate={{ y: [0, -20, 0] }}
+                style={{ color: '#F5F5F5' }} // Bright off-white color
+                animate={{ y: [0, -20, 0] }} // Keep the bounce animation
                 transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
               >
                 Ahsan
               </motion.span>{' '}
               <motion.span
                 className="inline-block"
-                style={{ color: '#F5F5F5' }}
-                animate={{ y: [0, -20, 0] }}
+                style={{ color: '#F5F5F5' }} // Bright off-white color
+                animate={{ y: [0, -20, 0] }} // Keep the bounce animation
                 transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', delay: 0.2 }}
               >
                 Ismail
@@ -329,8 +427,26 @@ function App() {
           ))}
         </motion.section>
 
-        {/* Add ModernSkillsSection here */}
-        <ModernSkillsSection />
+{/*         <motion.section
+          id="skills"
+          className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
+            whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
+            transition={{ duration: 0.8 }}
+          >
+            Skills & Expertise
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8 mt-8 sm:mt-16">
+            {skills.map((skill, index) => (
+              <SkillBar key={skill.name} name={skill.name} percentage={skill.percentage} index={index} />
+            ))}
+          </div>
+        </motion.section> */}
 
         <motion.section
           id="projects"
