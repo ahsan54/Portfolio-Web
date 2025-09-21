@@ -12,6 +12,7 @@ import topLightImage from './img/light_top.jpg';
 import topPolygonImage from './img/polygon_top.webp';
 // Import all project images
 import car_dealer from './img/car_dealer.jpg';
+import cozmetica_img from './img/cozmetica.jpg';
 import jnj_polymer from './img/jnj_polymer.png';
 import tijImage from './img/tij.jpg';
 import bssImage from './img/bss.jpg';
@@ -26,6 +27,12 @@ import appointmentImage from './img/appointment.png';
 import hotelImage from './img/hotel_background.jpg';
 
 const projects = [
+  {
+    title: 'Cozmetica',
+    description: 'Developed full-scale HRMS solution with employee self-service dashboards, seamlessly integrating all HR portal modules, plus custom job portal, tax certification, and income tax slab modules.',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/Cozmetica.git',
+    image: cozmetica_img,
+  },
   {
     title: 'HRL Group',
     description: 'Developed the Dealer Management and sales warranty portal, attendance portal, leave request portal, grievance portal and employee expense portal.',
@@ -47,7 +54,7 @@ const projects = [
   {
     title: 'BSS Development',
     description: 'Developed and migrated multiple Odoo 16 modules, including dynamic cheque numbering, custom approval workflows, salary register reports, enhanced employee portals, dynamic payment vouchers, invoice customization, default journal configurations, HR document generation, and automated withholding tax calculations.',
-    githubUrl: 'https://github.com/M-Ahsan-Ismail/BSS_Custom_Development.git',
+    githubUrl: 'https://github.com/M-Ahsan-Ismail/BSS_Internal_Devlopment.git',
     image: bssImage,
   },
   {
