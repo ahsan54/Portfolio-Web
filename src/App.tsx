@@ -531,57 +531,6 @@ function App() {
       </div>
 
       {/* Settings Button */}
-
-      {/* CV Popup */}
-      <AnimatePresence>
-        {showCVPopup && (
-          <motion.div
-            className="fixed top-4 right-4 z-50 cv-popup"
-            initial={{ opacity: 0, x: 100, scale: 0.8 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 100, scale: 0.8 }}
-            transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
-          >
-            <div className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-500 p-4 rounded-xl shadow-2xl max-w-sm animate-bounce-in">
-              <div className="flex items-start justify-between mb-2">
-                <div className="flex items-center">
-                  <Download className="w-5 h-5 text-white mr-2" />
-                  <h3 className="font-bold text-white text-sm">Download My CV</h3>
-                </div>
-                <button
-                  onClick={() => setShowCVPopup(false)}
-                  className="text-white hover:text-gray-200 transition-colors"
-                >
-                  <X className="w-4 h-4" />
-                </button>
-              </div>
-              <p className="text-white text-xs mb-3 opacity-90">
-                Get my latest resume with all project details and experience!
-              </p>
-              <div className="flex gap-2">
-                <button
-                  onClick={downloadCV}
-                  className="flex-1 bg-white text-yellow-600 px-3 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 transition-colors"
-                >
-                  Download Now
-                </button>
-                <label className="bg-yellow-600 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-yellow-700 transition-colors flex items-center cursor-pointer">
-                  <Settings className="w-3 h-3 mr-1" />
-                  <span>Upload CV</span>
-                  <input
-                    type="file"
-                    accept=".pdf,.xlsx,.txt"
-                    className="hidden"
-                    onChange={handleFileUpload}
-                  />
-                </label>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Settings Button */}
       <motion.button
         className="fixed top-4 right-4 z-50 bg-blue-500/20 p-2 rounded-full text-white hover:bg-blue-500/40 relative"
         onClick={toggleSettingsMenu}
@@ -630,7 +579,55 @@ function App() {
                 </div>
               </button>
             </div>
-          </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* CV Popup */}
+      <AnimatePresence>
+        {showCVPopup && (
+          <motion.div
+            className="fixed top-4 right-4 z-50 cv-popup"
+            initial={{ opacity: 0, x: 100, scale: 0.8 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: 100, scale: 0.8 }}
+            transition={{ duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
+          >
+            <div className="bg-gradient-to-r from-yellow-400 via-yellow-500 to-amber-500 p-4 rounded-xl shadow-2xl max-w-sm animate-bounce-in">
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center">
+                  <Download className="w-5 h-5 text-white mr-2" />
+                  <h3 className="font-bold text-white text-sm">Download My CV</h3>
+                </div>
+                <button
+                  onClick={() => setShowCVPopup(false)}
+                  className="text-white hover:text-gray-200 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <p className="text-white text-xs mb-3 opacity-90">
+                Get my latest resume with all project details and experience!
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={downloadCV}
+                  className="flex-1 bg-white text-yellow-600 px-3 py-2 rounded-lg text-xs font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Download Now
+                </button>
+                <label className="bg-yellow-600 text-white px-3 py-2 rounded-lg text-xs font-semibold hover:bg-yellow-700 transition-colors flex items-center cursor-pointer">
+                  <Settings className="w-3 h-3 mr-1" />
+                  <span>Upload CV</span>
+                  <input
+                    type="file"
+                    accept=".pdf,.xlsx,.txt"
+                    className="hidden"
+                    onChange={handleFileUpload}
+                  />
+                </label>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
 
