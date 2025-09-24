@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './CVPopup.css';
 import ModernSkillsSection from './components/SkillBar';
+import { VisitorAnalytics } from './components/VisitorAnalytics';
+import { visitorTracker } from './utils/visitorTracking';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson, Settings, Download, X } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, Code2, GitBranch, GitMerge, Database, FileJson, Settings, Download, X, BarChart3, Upload } from 'lucide-react';
 import { AnimatedSection } from './components/AnimatedSection';
 import { SkillBar } from './components/SkillBar';
 import { ProjectCard } from './components/ProjectCard';
@@ -154,6 +156,8 @@ function App() {
 
   // State for CV popup
   const [showCVPopup, setShowCVPopup] = useState(false);
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+  const [showVisitorAnalytics, setShowVisitorAnalytics] = useState(false);
   const [fileName, setFileName] = useState('');
 
   // useEffect to show popup after 2 seconds
@@ -165,6 +169,18 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Track page views
+  useEffect(() => {
+    visitorTracker.trackPageView(window.location.pathname);
+    
+    // Track route changes for SPA
+    const handleRouteChange = () => {
+      visitorTracker.trackPageView(window.location.pathname);
+    };
+    
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
   // Handle file upload
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -254,6 +270,9 @@ function App() {
     setShowCVPopup(false);
   };
 
+  const toggleSettingsMenu = () => {
+    setShowSettingsMenu(!showSettingsMenu);
+  };
   return (
     <div className="relative">
       <Navbar />
@@ -513,14 +532,56 @@ function App() {
 
       {/* Settings Button */}
       <motion.button
-        className="fixed top-4 right-4 z-50 bg-blue-500/20 p-2 rounded-full text-white hover:bg-blue-500/40"
-        onClick={() => setShowCVPopup(true)}
+        className="fixed top-4 right-4 z-50 bg-blue-500/20 p-2 rounded-full text-white hover:bg-blue-500/40 relative"
+        onClick={toggleSettingsMenu}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
         <Settings className="w-6 h-6" />
       </motion.button>
 
+      {/* Settings Menu */}
+      <AnimatePresence>
+        {showSettingsMenu && (
+          <motion.div
+            className="fixed top-16 right-4 z-50 bg-gray-900/95 backdrop-blur-sm border border-gray-700/50 rounded-xl shadow-2xl overflow-hidden"
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="p-2">
+              <button
+                onClick={() => {
+                  setShowCVPopup(true);
+                  setShowSettingsMenu(false);
+                }}
+                className="w-full flex items-center space-x-3 px-4 py-3 text-left text-white hover:bg-gray-800/50 rounded-lg transition-colors"
+              >
+                <Download className="w-5 h-5 text-yellow-400" />
+                <div>
+                  <div className="font-medium">CV Options</div>
+                  <div className="text-xs text-gray-400">Download or upload CV</div>
+                </div>
+              </button>
+              
+              <button
+                onClick={() => {
+                  setShowVisitorAnalytics(true);
+                  setShowSettingsMenu(false);
+                }}
+                className="w-full flex items-center space-x-3 px-4 py-3 text-left text-white hover:bg-gray-800/50 rounded-lg transition-colors"
+              >
+                <BarChart3 className="w-5 h-5 text-blue-400" />
+                <div>
+                  <div className="font-medium">Visitors</div>
+                  <div className="text-xs text-gray-400">View analytics dashboard</div>
+                </div>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* CV Popup */}
       <AnimatePresence>
         {showCVPopup && (
@@ -569,6 +630,12 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Visitor Analytics */}
+      <VisitorAnalytics 
+        isOpen={showVisitorAnalytics} 
+        onClose={() => setShowVisitorAnalytics(false)} 
+      />
     </div>
   );
 }
