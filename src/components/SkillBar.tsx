@@ -66,25 +66,20 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
   return (
     <motion.div
       ref={ref}
-      initial={{ 
-        opacity: 0, 
+      initial={{
+        opacity: 0,
         y: 100,
         scale: 0.8,
         rotateX: -15
       }}
-      animate={inView ? { 
-        opacity: 1, 
+      animate={inView ? {
+        opacity: 1,
         y: 0,
         scale: 1,
         rotateX: 0
-      } : { 
-        opacity: 0, 
-        y: 100,
-        scale: 0.8,
-        rotateX: -15
-      }}
-      transition={{ 
-        duration: 0.8, 
+      } : undefined}
+      transition={{
+        duration: 0.8,
         delay: index * 0.1,
         type: "spring",
         stiffness: 100,
@@ -403,8 +398,8 @@ export default function ModernSkillsSection() {
         transition={{ duration: 0.8, delay: 0.8 }}
       >
         {[
-          { label: 'Technologies', value: '8+' }, 
-          { label: 'Years Experience', value: '1' },
+          { label: 'Technologies', value: '8+' },
+          { label: 'Years Experience', value: '2' },
           { label: 'Projects Completed', value: '5+' },
           { label: 'Average Proficiency', value: '85%' }
         ].map((stat, index) => (
