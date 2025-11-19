@@ -13,7 +13,7 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ scale: 1.03, rotateY: 5 }}
       className="group relative overflow-hidden rounded-xl flex flex-col min-h-[350px] sm:min-h-[400px] glass-effect hover-card"
@@ -31,7 +31,7 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
         <div className="flex-grow">
           <motion.h3
             initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
             className="text-xl sm:text-2xl font-bold text-white mb-2 glow-text"
           >
@@ -39,7 +39,7 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
           </motion.h3>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
             className="text-gray-300 text-sm sm:text-base mb-4 line-clamp-6 sm:line-clamp-4"
           >
@@ -49,7 +49,7 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
 
         <motion.a
           initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.3, delay: index * 0.1 + 0.4 }}
           whileHover={{ scale: 1.05, color: "#60A5FA", textShadow: "0 0 15px rgb(147, 197, 253)" }}
           href={githubUrl}

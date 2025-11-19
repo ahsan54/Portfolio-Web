@@ -453,16 +453,14 @@ function App() {
 
         <ModernSkillsSection />
 
-        <motion.section
+        <section
           id="projects"
           className="py-16 sm:py-24 px-4 sm:px-8 max-w-6xl mx-auto"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
         >
           <motion.h2
             className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 sm:mb-16 text-center"
-            whileInView={{ scale: [0.9, 1.1, 1], opacity: [0, 1] }}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
             Featured Projects
@@ -471,13 +469,13 @@ function App() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 mt-8 sm:mt-16"
             variants={containerVariants}
             initial="hidden"
-            whileInView="visible"
+            animate="visible"
           >
             {projects.map((project, index) => (
               <ProjectCard key={project.title} {...project} index={index} />
             ))}
           </motion.div>
-        </motion.section>
+        </section>
 
         <motion.section
           id="contact"

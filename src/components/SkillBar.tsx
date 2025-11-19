@@ -1,6 +1,5 @@
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface SkillBarProps {
   name: string;
@@ -11,18 +10,13 @@ interface SkillBarProps {
 }
 
 function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡" }: SkillBarProps) {
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  });
-  
   const [isHovered, setIsHovered] = useState(false);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
+
   const rotateX = useTransform(mouseY, [-300, 300], [10, -10]);
   const rotateY = useTransform(mouseX, [-300, 300], [-10, 10]);
-  
+
   const springConfig = { damping: 25, stiffness: 700 };
   const x = useSpring(rotateX, springConfig);
   const y = useSpring(rotateY, springConfig);
@@ -52,7 +46,7 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
   const getIconGradient = (index: number) => {
     const iconGradients = [
       'text-purple-400',
-      'text-cyan-400', 
+      'text-cyan-400',
       'text-emerald-400',
       'text-orange-400',
       'text-pink-400',
@@ -65,26 +59,6 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
 
   return (
     <motion.div
-      ref={ref}
-      initial={{
-        opacity: 0,
-        y: 100,
-        scale: 0.8,
-        rotateX: -15
-      }}
-      animate={inView ? {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotateX: 0
-      } : undefined}
-      transition={{
-        duration: 0.8,
-        delay: index * 0.1,
-        type: "spring",
-        stiffness: 100,
-        damping: 20
-      }}
       style={{
         rotateX: x,
         rotateY: y,
@@ -105,10 +79,9 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
       className="group cursor-pointer"
     >
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-900/90 backdrop-blur-xl border border-gray-700/50 shadow-2xl">
-        {/* Animated background mesh */}
         <div className="absolute inset-0 opacity-30">
           <div className={`absolute inset-0 bg-gradient-to-br ${getGradient(index)} mix-blend-multiply`}></div>
-          <motion.div 
+          <motion.div
             className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent"
             animate={{
               rotate: [0, 360],
@@ -121,7 +94,6 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
           ></motion.div>
         </div>
 
-        {/* Glow effect */}
         <motion.div
           className={`absolute -inset-0.5 bg-gradient-to-r ${getGradient(index)} rounded-2xl blur-sm`}
           animate={{
@@ -130,14 +102,13 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
           transition={{ duration: 0.3 }}
         ></motion.div>
 
-        {/* Content */}
         <div className="relative z-10 p-6 h-full">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center space-x-3">
               <motion.div
                 className={`text-2xl ${getIconGradient(index)} filter drop-shadow-lg`}
-                whileHover={{ 
-                  scale: 1.3, 
+                whileHover={{
+                  scale: 1.3,
                   rotate: [0, -10, 10, 0],
                   filter: "drop-shadow(0 0 8px currentColor)"
                 }}
@@ -146,32 +117,24 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
                 {icon}
               </motion.div>
               <div>
-                <motion.h3 
+                <motion.h3
                   className="text-xl font-bold text-white group-hover:text-gray-100 transition-colors duration-300"
                   style={{ transform: "translateZ(20px)" }}
                 >
                   {name}
                 </motion.h3>
-                <motion.span 
-                  className="text-xs text-gray-400 uppercase tracking-wider font-medium"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                >
+                <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">
                   {category}
-                </motion.span>
+                </span>
               </div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               className="text-right"
               style={{ transform: "translateZ(15px)" }}
             >
-              <motion.span 
+              <motion.span
                 className={`text-2xl font-bold ${getIconGradient(index)} filter drop-shadow-sm`}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, type: "spring" }}
                 whileHover={{
                   scale: 1.2,
                   filter: "drop-shadow(0 0 8px currentColor)"
@@ -181,30 +144,16 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
               </motion.span>
             </motion.div>
           </div>
-          
-          {/* Progress container */}
+
           <div className="relative">
             <div className="w-full bg-gray-700/30 rounded-full h-3 overflow-hidden backdrop-blur-sm border border-gray-600/30">
               <motion.div
                 className={`h-3 rounded-full bg-gradient-to-r ${getGradient(index)} relative overflow-hidden`}
-                initial={{ width: 0, opacity: 0 }}
-                animate={inView ? { 
-                  width: `${percentage}%`, 
-                  opacity: 1 
-                } : { 
-                  width: 0, 
-                  opacity: 0 
-                }}
-                transition={{ 
-                  duration: 1.5, 
-                  delay: index * 0.1 + 0.5,
-                  ease: "easeOut" 
-                }}
+                style={{ width: `${percentage}%` }}
                 whileHover={{
                   boxShadow: `0 0 20px ${index % 2 === 0 ? '#8b5cf6' : '#06b6d4'}`,
                 }}
               >
-                {/* Shimmer effect */}
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
                   animate={{
@@ -219,15 +168,14 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
                 ></motion.div>
               </motion.div>
             </div>
-            
-            {/* Floating particles */}
+
             {isHovered && (
               <div className="absolute inset-0 pointer-events-none">
                 {[...Array(6)].map((_, i) => (
                   <motion.div
                     key={i}
                     className={`absolute w-1 h-1 ${getIconGradient(index)} rounded-full`}
-                    initial={{ 
+                    initial={{
                       x: Math.random() * 100 + '%',
                       y: '50%',
                       opacity: 0,
@@ -250,40 +198,27 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
             )}
           </div>
 
-          {/* Expertise level indicator */}
-          <motion.div 
-            className="mt-4 flex items-center justify-between"
-            initial={{ opacity: 0, y: 10 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
+          <div className="mt-4 flex items-center justify-between">
             <div className="flex space-x-1">
               {[...Array(5)].map((_, i) => (
                 <motion.div
                   key={i}
                   className={`w-2 h-2 rounded-full ${
-                    i < Math.floor(percentage / 20) 
-                      ? `bg-gradient-to-r ${getGradient(index)}` 
+                    i < Math.floor(percentage / 20)
+                      ? `bg-gradient-to-r ${getGradient(index)}`
                       : 'bg-gray-600/50'
                   }`}
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={inView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-                  transition={{ 
-                    duration: 0.3, 
-                    delay: 0.8 + i * 0.1,
-                    type: "spring"
-                  }}
                   whileHover={{ scale: 1.5 }}
                 />
               ))}
             </div>
-            <motion.span 
+            <motion.span
               className="text-xs text-gray-400 font-medium"
               whileHover={{ color: '#9ca3af' }}
             >
               {percentage >= 90 ? 'Expert' : percentage >= 70 ? 'Advanced' : percentage >= 50 ? 'Intermediate' : 'Beginner'}
             </motion.span>
-          </motion.div>
+          </div>
         </div>
       </div>
     </motion.div>
@@ -291,32 +226,22 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
 }
 
 export default function ModernSkillsSection() {
-  const [sectionRef, sectionInView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  });
-
   const skills = [
-     { "name": "Python", "percentage": 80, "category": "Programming Language", "icon": "🐍" },
-  { "name": "OdooERP", "percentage": 90, "category": "ERP Framework", "icon": "🏢" },
-  { "name": "Rest Apis", "percentage": 90, "category": "API", "icon": "🔌" },
-  { "name": "Object Oriented Programming", "percentage": 85, "category": "Paradigm", "icon": "🧩" },
-  { "name": "Data Structures", "percentage": 80, "category": "Engineering", "icon": "🌳" },
-  { "name": "PostgreSQL", "percentage": 75, "category": "Database", "icon": "🗃️" },
-  { "name": "QWeb", "percentage": 90, "category": "Templating Engine", "icon": "📄" },
-  { "name": "XML/HTML/CSS", "percentage": 80, "category": "Web Technologies", "icon": "🌐" }
+    { "name": "Python", "percentage": 80, "category": "Programming Language", "icon": "🐍" },
+    { "name": "OdooERP", "percentage": 90, "category": "ERP Framework", "icon": "🏢" },
+    { "name": "Rest Apis", "percentage": 90, "category": "API", "icon": "🔌" },
+    { "name": "Object Oriented Programming", "percentage": 85, "category": "Paradigm", "icon": "🧩" },
+    { "name": "Data Structures", "percentage": 80, "category": "Engineering", "icon": "🌳" },
+    { "name": "PostgreSQL", "percentage": 75, "category": "Database", "icon": "🗃️" },
+    { "name": "QWeb", "percentage": 90, "category": "Templating Engine", "icon": "📄" },
+    { "name": "XML/HTML/CSS", "percentage": 80, "category": "Web Technologies", "icon": "🌐" }
   ];
 
   return (
-    <motion.section
-      ref={sectionRef}
+    <section
       id="skills"
       className="relative py-20 px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1 }}
     >
-      {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-1/4 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
@@ -344,45 +269,38 @@ export default function ModernSkillsSection() {
         />
       </div>
 
-      {/* Header */}
       <div className="text-center mb-16 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
-          transition={{ duration: 0.8 }}
-          className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-full border border-purple-500/30 mb-6"
-        >
+        <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 rounded-full border border-purple-500/30 mb-6">
           <span className="text-2xl">⚡</span>
           <span className="text-sm text-gray-300 font-medium">TECHNICAL EXPERTISE</span>
-        </motion.div>
-        
+        </div>
+
         <motion.h2
           className="text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-br from-white via-gray-200 to-gray-400 bg-clip-text text-transparent mb-6"
           initial={{ opacity: 0, scale: 0.5 }}
-          animate={sectionInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           Skills & Expertise
         </motion.h2>
-        
+
         <motion.p
           className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Crafting digital experiences with cutting-edge technologies and proven methodologies. 
+          Crafting digital experiences with cutting-edge technologies and proven methodologies.
           Each skill represents countless hours of dedication and real-world application.
         </motion.p>
       </div>
 
-      {/* Skills Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 lg:gap-8 relative z-10">
         {skills.map((skill, index) => (
-          <SkillBar 
-            key={skill.name} 
-            name={skill.name} 
-            percentage={skill.percentage} 
+          <SkillBar
+            key={skill.name}
+            name={skill.name}
+            percentage={skill.percentage}
             index={index}
             category={skill.category}
             icon={skill.icon}
@@ -390,11 +308,10 @@ export default function ModernSkillsSection() {
         ))}
       </div>
 
-      {/* Stats Footer */}
       <motion.div
         className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
         initial={{ opacity: 0, y: 50 }}
-        animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.8 }}
       >
         {[
@@ -412,7 +329,7 @@ export default function ModernSkillsSection() {
             <motion.div
               className="text-2xl font-bold text-white mb-1"
               initial={{ scale: 0 }}
-              animate={sectionInView ? { scale: 1 } : { scale: 0 }}
+              animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 1 + index * 0.1, type: "spring" }}
             >
               {stat.value}
@@ -421,6 +338,6 @@ export default function ModernSkillsSection() {
           </motion.div>
         ))}
       </motion.div>
-    </motion.section>
+    </section>
   );
 }
