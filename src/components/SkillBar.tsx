@@ -118,12 +118,12 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
               </motion.div>
               <div>
                 <motion.h3
-                  className="text-xl font-bold text-white group-hover:text-gray-100 transition-colors duration-300"
+                  className="text-xl font-bold text-gray-900 group-hover:text-gray-100 transition-colors duration-300"
                   style={{ transform: "translateZ(20px)" }}
                 >
                   {name}
                 </motion.h3>
-                <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">
+                <span className="text-xs text-gray-600 uppercase tracking-wider font-medium">
                   {category}
                 </span>
               </div>
@@ -213,7 +213,7 @@ function SkillBar({ name, percentage, index, category = "Technical", icon = "⚡
               ))}
             </div>
             <motion.span
-              className="text-xs text-gray-400 font-medium"
+              className="text-xs text-gray-600 font-medium"
               whileHover={{ color: '#9ca3af' }}
             >
               {percentage >= 90 ? 'Expert' : percentage >= 70 ? 'Advanced' : percentage >= 50 ? 'Intermediate' : 'Beginner'}
@@ -285,7 +285,7 @@ export default function ModernSkillsSection() {
         </motion.h2>
 
         <motion.p
-          className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
+          className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -327,14 +327,14 @@ export default function ModernSkillsSection() {
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="text-2xl font-bold text-white mb-1"
+              className="text-2xl font-bold text-gray-900 mb-1"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5, delay: 1 + index * 0.1, type: "spring" }}
             >
               {stat.value}
             </motion.div>
-            <div className="text-sm text-gray-400">{stat.label}</div>
+            <div className="text-sm text-gray-600">{stat.label}</div>
           </motion.div>
         ))}
       </motion.div>

@@ -33,7 +33,7 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
-            className="text-xl sm:text-2xl font-bold text-white mb-2 glow-text"
+            className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 glow-text"
           >
             {title}
           </motion.h3>
@@ -41,7 +41,7 @@ export function ProjectCard({ title, description, githubUrl, image, index }: Pro
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.3, delay: index * 0.1 + 0.3 }}
-            className="text-gray-300 text-sm sm:text-base mb-4 line-clamp-6 sm:line-clamp-4"
+            className="text-gray-700 text-sm sm:text-base mb-4 line-clamp-6 sm:line-clamp-4"
           >
             {description}
           </motion.p>

@@ -18,7 +18,7 @@ export function Navbar() {
   const backgroundColor = useTransform(
     scrollY,
     [0, 100],
-    ['rgba(0, 0, 0, 0.1)', 'rgba(0, 0, 0, 0.8)']
+    ['rgba(255, 255, 255, 0.4)', 'rgba(255, 255, 255, 0.95)']
   );
 
   const backdropBlur = useTransform(
@@ -159,7 +159,7 @@ export function Navbar() {
               className={`relative px-3 sm:px-5 py-2 sm:py-3 text-sm sm:text-base font-bold transition-all duration-300 rounded-full ${
                 activeSection === id 
                   ? 'text-white nav-item-active' 
-                  : 'text-gray-300 hover:text-white nav-item-hover'
+                  : 'text-gray-600 hover:text-gray-900 nav-item-hover'
               }`}
               whileHover={{ 
                 scale: 1.05,
